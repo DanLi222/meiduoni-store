@@ -13,7 +13,8 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-
+    response = Cloudinary::Uploader.upload(product_params['image'].path,:public_id => "#{@product.sku}-#{@product.color}")
+    @product.image = response['secure_url']
     @product.save
     redirect_to products_path
   end

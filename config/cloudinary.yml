@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: storedan
+  api_key: '789659421456698'
+  api_secret: DEFGFFpVgpN5Ti0JcbUDzMmc4PA
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: storedan
+  api_key: '789659421456698'
+  api_secret: DEFGFFpVgpN5Ti0JcbUDzMmc4PA
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: storedan
+  api_key: '789659421456698'
+  api_secret: DEFGFFpVgpN5Ti0JcbUDzMmc4PA
+  enhance_image_tag: true
+  static_file_support: false
