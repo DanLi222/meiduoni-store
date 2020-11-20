@@ -1,0 +1,32 @@
+<div class="container">
+  <section class="py-5">
+    <h2 class="h5 text-uppercase mb-4">New Product</h2>
+    <div class="row">
+      <div class="col-lg-12 mb-4 mb-lg-0">
+        <!-- CART TABLE-->
+        <div class="table-responsive mb-4">
+          <%= form_with scope: :product, url: products_path do |form| %>
+            <p>
+              <%= form.label :sku %><br>
+              <%= form.text_field :sku %>
+            </p>
+
+            <p>
+              <%= form.label :color %><br>
+              <%= form.text_field :color %>
+            </p>
+
+            <p>
+              <%= form.label :image %><br>
+              <%= form.file_field :image %>
+            </p>
+
+            <p>
+              <%= form.submit html:{class: "btn btn-outline-dark btn-sm"} %>
+            </p>
+          <% end %>
+      </div>
+      </div>
+    </div>
+  </section>
+</div>
