@@ -1,13 +1,15 @@
 class Product < ApplicationRecord
   has_one :property
+  has_many :inventories
 
   after_create :create_properties
 
   DEFAULT_GENDER = "male"
-  DEFAULT_COLOR = "black"
   DEFAULT_MATERIAL = "leather"
   DEFAULT_SEASON = "all"
   DEFAULT_PRICE = 0
+  DEFAULT_QUANTITY = 0
+  SIZES = 35..40
 
   private
   def create_properties
@@ -17,5 +19,11 @@ class Product < ApplicationRecord
         season: DEFAULT_SEASON,
         price: DEFAULT_PRICE
     )
+  end
+
+  def create_inventories
+    SIZES.each do |size|
+      self.inventories << Inventory.create(size: size, quantity: DEFAULT_QUANTITY)
+    end
   end
 end
