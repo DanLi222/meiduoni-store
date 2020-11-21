@@ -21,7 +21,8 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-
+    response = Cloudinary::Uploader.upload(product_params['image'].path,:public_id => "#{@product.sku}-#{@product.color}")
+    params['product']['image'] = response['secure_url']
     if @product.update(product_params)
       redirect_to products_path
     else
