@@ -4,4 +4,8 @@ Rails.application.routes.draw do
   get 'activity/feed'
   root to: 'products#index'
   resources :products
+  namespace :admins do
+    resources :products
+  end
+
 end
