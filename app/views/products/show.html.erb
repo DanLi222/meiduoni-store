@@ -100,6 +100,24 @@
           <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Material:</strong><a class="reset-anchor ml-2" href="#"><%= @product.property.material %></a></li>
           <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Season:</strong><a class="reset-anchor ml-2" href="#"><%= @product.property.season %></a></li>
         </ul>
+        <table>
+          <tr>
+            <th>35</th>
+            <th>36</th>
+            <th>37</th>
+            <th>38</th>
+            <th>39</th>
+            <th>40</th>
+          </tr>
+          <tr>
+            <td><%= @product.inventories.select { |inv| inv.size == "35" }.first.try(:quantity) || 0 %></td>
+            <td><%= @product.inventories.select { |inv| inv.size == "36" }.first.try(:quantity) || 0 %></td>
+            <td><%= @product.inventories.select { |inv| inv.size == "37" }.first.try(:quantity) || 0 %></td>
+            <td><%= @product.inventories.select { |inv| inv.size == "38" }.first.try(:quantity) || 0 %></td>
+            <td><%= @product.inventories.select { |inv| inv.size == "39" }.first.try(:quantity) || 0 %></td>
+            <td><%= @product.inventories.select { |inv| inv.size == "40" }.first.try(:quantity) || 0 %></td>
+          </tr>
+        </table>
       </div>
     </div>
     <!-- DETAILS TABS-->

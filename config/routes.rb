@@ -5,10 +5,12 @@ Rails.application.routes.draw do
   root to: 'products#index'
   resources :products do
     resources :properties
+    resources :inventories
   end
   namespace :admins do
     resources :products
     resources :properties
+    resources :inventories
   end
 
 end
