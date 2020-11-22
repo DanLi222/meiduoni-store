@@ -6,6 +6,7 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
     <script src="https://kit.fontawesome.com/6d90f39943.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +14,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
+
     <!-- Google fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
@@ -20,9 +22,10 @@
     <link rel="shortcut icon" href=" ">
   </head>
   <body>
-    <div class="wrapper">
+    <div class="page-holder">
       <%= render partial: "layouts/navbar" %>
       <%= yield %>
     </div>
+    <%= render partial: "layouts/footer" %>
   </body>
 </html>

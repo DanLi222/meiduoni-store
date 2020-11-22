@@ -3,6 +3,7 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+
 require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
@@ -16,10 +17,12 @@ window.$ = window.jQuery = jQuery;
 
 require("bootstrap");
 require("admin-lte");
-//= require owl.carousel.thumbs
-//= require owl.carousel2.thumbs
-//= require lightbox
-//= require nouislider
+require("lightbox2");
+require("nouislider");
+require("bootstrap-select");
+require("owl.carousel2");
+
+// import "../stylesheets/application";
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
