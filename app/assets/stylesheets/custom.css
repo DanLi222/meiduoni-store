@@ -1475,6 +1475,10 @@ STYLE SWITCHER FOR DEMO
     border-radius: 0;
 }
 
+.navbar-light {
+    background-color: #ffffff !important;
+}
+
 .navbar-light .navbar-brand {
     color: #dcb14a;
 }

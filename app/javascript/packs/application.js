@@ -21,6 +21,7 @@ require("lightbox2");
 require("nouislider");
 require("bootstrap-select");
 require("owl.carousel2");
+require("../front");
 
 // import "../stylesheets/application";
 // Uncomment to copy all static images under ../images to the output folder and reference
