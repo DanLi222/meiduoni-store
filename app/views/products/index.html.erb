@@ -180,7 +180,7 @@
                     </div>
                   </div>
                   <h6> <a class="reset-anchor" href="detail.html"><%= product.sku %></a></h6>
-                  <p class="small text-muted">$250</p>
+                  <p class="small text-muted"><%= product.property.price %></p>
                 </div>
               </div>
             <% end %>
@@ -200,30 +200,3 @@
     </div>
   </section>
 </div>
-<!-- Nouislider Config-->
-<script>
-    var range = document.getElementById('range');
-    noUiSlider.create(range, {
-        range: {
-            'min': 0,
-            'max': 2000
-        },
-        step: 5,
-        start: [100, 1000],
-        margin: 300,
-        connect: true,
-        direction: 'ltr',
-        orientation: 'horizontal',
-        behaviour: 'tap-drag',
-        tooltips: true,
-        format: {
-            to: function ( value ) {
-                return '$' + value;
-            },
-            from: function ( value ) {
-                return value.replace('', '');
-            }
-        }
-    });
-
-</script>

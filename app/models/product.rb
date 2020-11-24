@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
-  has_one :property
-  has_many :inventories
+  has_one :property, dependent: :destroy
+  has_many :inventories, dependent: :destroy
 
   after_create :create_properties
 
