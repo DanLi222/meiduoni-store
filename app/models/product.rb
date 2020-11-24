@@ -2,7 +2,7 @@ class Product < ApplicationRecord
   has_one :property, dependent: :destroy
   has_many :inventories, dependent: :destroy
 
-  after_create :create_properties
+  after_create :create_properties, :create_inventories
 
   DEFAULT_GENDER = "male"
   DEFAULT_MATERIAL = "leather"

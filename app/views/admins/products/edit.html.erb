@@ -1,26 +1,113 @@
-<h1>Edit Article</h1>
 
-<%= form_with(model: @product, local: true) do |form| %>
+<div class="container">
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+        <div class="col-lg-6">
+          <h1 class="h2 text-uppercase mb-0">Edit</h1>
+        </div>
+        <div class="col-lg-6 text-lg-right">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-lg-end mb-0 px-0">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="cart.html">Edit</a></li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="py-5">
+    <!-- BILLING ADDRESS-->
+    <h2 class="h5 text-uppercase mb-4">Billing details</h2>
+    <div class="row">
+      <div class="col-lg-8">
+        <%= form_with(model: [:admins, @product], html: {multipart: true}, local: true) do |form| %>
 
-  <p>
-    <%= form.label :sku %><br>
-    <%= form.text_field :sku %>
-  </p>
+          <% if @product.errors.any? %>
+            <div id="error_explanation">
+              <h2>
+                <%= pluralize(@product.errors.count, "error") %> prohibited
+                this article from being saved:
+              </h2>
+              <ul>
+                <% @product.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-  <p>
-    <%= form.label :color %><br>
-    <%= form.text_field :color %>
-  </p>
 
-  <p>
-    <%= form.label :image %><br>
-    <%= form.file_field :image %>
-  </p>
-
-  <p>
-    <%= form.submit %>
-  </p>
-
-<% end %>
-
-<%= link_to 'Back', products_path %>
+          <table>
+            <tr>
+              <td><%= form.label :sku %></td>
+              <td><%= form.text_field :sku, value: @product.sku %></td>
+            </tr>
+            <tr>
+              <td><%= form.label :color %></td>
+              <td><%= form.text_field :color, value: @product.color %></td>
+            </tr>
+            <tr>
+              <td><%= form.label :image %></td>
+              <td><%= form.file_field :image %></td>
+            </tr>
+            <tr>
+              <td><%= form.label :gender %></td>
+              <td><%= form.text_field :gender, value: @product.property.gender %></td>
+            </tr>
+            <tr>
+              <td><%= form.label :material %></td>
+              <td><%= form.text_field :material, value: @product.property.material %></td>
+            </tr>
+            <tr>
+              <td><%= form.label :season %></td>
+              <td><%= form.text_field :season, value: @product.property.season %></td>
+            </tr>
+            <tr>
+              <td><%= form.label :price %></td>
+              <td><%= form.text_field :price, value: @product.property.price %></td>
+            </tr>
+            <tr>
+              <td><%= form.label "35" %></td>
+              <td><%= form.text_field :"35", value: @product.inventories.select { |inv| inv.size == "35" }.first.try(:quantity) || 0 %></td>
+            </tr>
+            <tr>
+              <td><%= form.label "36" %></td>
+              <td><%= form.text_field :"36", value: @product.inventories.select { |inv| inv.size == "36" }.first.try(:quantity) || 0 %></td>
+            </tr>
+            <tr>
+              <td><%= form.label "37" %></td>
+              <td><%= form.text_field :"37", value: @product.inventories.select { |inv| inv.size == "37" }.first.try(:quantity) || 0 %></td>
+            </tr>
+            <tr>
+              <td><%= form.label "38" %></td>
+              <td><%= form.text_field :"38", value: @product.inventories.select { |inv| inv.size == "38" }.first.try(:quantity) || 0 %></td>
+            </tr>
+            <tr>
+              <td><%= form.label "39" %></td>
+              <td><%= form.text_field :"39", value: @product.inventories.select { |inv| inv.size == "39" }.first.try(:quantity) || 0 %></td>
+            </tr>
+            <tr>
+              <td><%= form.label "40" %></td>
+              <td><%= form.text_field :"40", value: @product.inventories.select { |inv| inv.size == "40" }.first.try(:quantity) || 0 %></td>
+            </tr>
+          </table>
+          <p>
+            <%= form.submit %>
+          </p>
+        <% end %>
+      </div>
+      <!-- ORDER SUMMARY-->
+      <div class="col-lg-4">
+        <div class="card border-0 rounded-0 p-lg-4 bg-light">
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              <li class="d-flex align-items-center justify-content-between"><img class="img-fluid w-100" src="<%= @product.image %>" alt="..."></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

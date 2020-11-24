@@ -181,7 +181,7 @@
                   </div>
                   <h6> <a class="reset-anchor" href="detail.html"><%= product.sku %></a></h6>
                   <p class="small text-muted"><%= product.property.price %></p>
-                  <%= link_to 'Edit', edit_product_path(product) %>
+                  <%= link_to 'Edit', edit_admins_product_path(product) %>
                   <%= link_to 'Destroy', admins_product_path(product),
                               method: :delete,
                               data: { confirm: 'Are you sure?' } %>
