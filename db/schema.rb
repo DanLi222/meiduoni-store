@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_25_004613) do
+ActiveRecord::Schema.define(version: 2020_11_30_165036) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(version: 2020_11_25_004613) do
     t.index ["product_id"], name: "index_inventories_on_product_id"
   end
 
+  create_table "line_items", force: :cascade do |t|
+    t.string "quantity"
+    t.integer "inventory_id", null: false
+    t.integer "cart_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cart_id"], name: "index_line_items_on_cart_id"
+    t.index ["inventory_id"], name: "index_line_items_on_inventory_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "sku"
     t.string "color"
@@ -85,5 +95,7 @@ ActiveRecord::Schema.define(version: 2020_11_25_004613) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "carts", "users"
   add_foreign_key "inventories", "products"
+  add_foreign_key "line_items", "carts"
+  add_foreign_key "line_items", "inventories"
   add_foreign_key "properties", "products"
 end
