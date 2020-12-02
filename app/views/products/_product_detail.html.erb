@@ -1,37 +1,53 @@
 <script>
+    $(document).ready(function () {
 
-    $('.owl-carousel').owlCarousel({
+      $('.owl-carousel').owlCarousel({
         center: true,
         items:1
-    });
+      });
 
-    $('.selectpicker').selectpicker().on('change', function () {
+      $('.selectpicker').selectpicker().on('change', function () {
         $(this).closest('.dropdown').find('.filter-option-inner-inner').addClass('selected');
-    });
+      });
 
-    $('#productColorPicker').on('change', function () {
+      $('#productColorPicker').on('change', function () {
         $.ajax({
-            url: "",
-            contentType: 'text/html',
-            type: "GET",
-            data: {product_id: this.value},
-            success: function(data){
-                $('#product_detail').html(data);
-            }
+          url: "",
+          contentType: 'text/html',
+          type: "GET",
+          data: {product_id: this.value},
+          success: function(data){
+            $('#product_detail').html(data);
+          }
         });
-    });
+      });
 
-    $('.dec-btn').click(function () {
+      $('.dec-btn').click(function () {
         var siblings = $(this).siblings('input');
         if (parseInt(siblings.val(), 10) >= 1) {
-            siblings.val(parseInt(siblings.val(), 10) - 1);
+          siblings.val(parseInt(siblings.val(), 10) - 1);
         }
-    });
+      });
 
-    $('.inc-btn').click(function () {
+      $('.inc-btn').click(function () {
         var siblings = $(this).siblings('input');
         siblings.val(parseInt(siblings.val(), 10) + 1);
-    });
+      });
+
+      $('#addToCart').click(function () {
+        console.log("clicked")
+        $.ajax({
+          url: "/add_line_item",
+          contentType: 'text/html',
+          type: "GET",
+          data: {
+            inventory_id: $('#inventoryPicker').val(),
+            quantity: $('#quantity').val(),
+            cart_id: <%= current_user.cart_ids.last %>
+          },
+        });
+      })
+    })
 
 </script>
 
@@ -122,33 +138,33 @@
           <h1><%= @selected_product.sku %></h1>
           <p class="text-muted lead"><%= @selected_product.property.price %></p>
           <p class="text-small mb-4">Description</p>
-          <div class="row align-items-stretch mb-4">
-            <div class="col-sm-5 pr-sm-0">
-              <div class="border d-flex align-items-center justify-content-between py-1 px-3 bg-white border-white"><span class="small text-uppercase text-gray mr-4 no-select">Quantity</span>
-                <div class="quantity">
-                  <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                  <input class="form-control border-0 shadow-0 p-0" type="text" value="1">
-                  <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="cart.html">Add to cart</a></div>
-          </div><a class="btn btn-link text-dark p-0 mb-4" href="#"><i class="far fa-heart mr-2"></i>Add to wish list</a><br>
           <ul class="list-unstyled small d-inline-block">
             <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">Color:</strong>
               <% products_array = @products.map { |product| [product.color, product.id]} %>
-                <select id="productColorPicker" class="selectpicker">
-                  <%= options_for_select(products_array, selected: @selected_product.id) %>
-                </select>
+              <select id="productColorPicker" class="selectpicker">
+                <%= options_for_select(products_array, selected: @selected_product.id) %>
+              </select>
             </li>
             <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">Size:</strong>
-              <select class="selectpicker">
+              <select id="inventoryPicker" class="selectpicker">
                 <%= options_for_select((@inventory_array), {disabled: @disabled_inventories.flatten}) %>
               </select>
             </li>
             <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Material:</strong><a class="reset-anchor ml-2" href="#"><%= @selected_product.property.material %></a></li>
             <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Season:</strong><a class="reset-anchor ml-2" href="#"><%= @selected_product.property.season %></a></li>
           </ul>
+          <div class="row align-items-stretch mb-4">
+            <div class="col-sm-5 pr-sm-0">
+              <div class="border d-flex align-items-center justify-content-between py-1 px-3 bg-white border-white"><span class="small text-uppercase text-gray mr-4 no-select">Quantity</span>
+                <div class="quantity">
+                  <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
+                  <input id="quantity" class="form-control border-0 shadow-0 p-0" type="text" value="1">
+                  <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3 pl-sm-0"><button id="addToCart" class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0">Add to cart</button></div>
+          </div><a class="btn btn-link text-dark p-0 mb-4" href="#"><i class="far fa-heart mr-2"></i>Add to wish list</a><br>
         </div>
       </div>
       <!-- DETAILS TABS-->
