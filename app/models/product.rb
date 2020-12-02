@@ -9,7 +9,10 @@ class Product < ApplicationRecord
   DEFAULT_SEASON = "all"
   DEFAULT_PRICE = 0
   DEFAULT_QUANTITY = 0
-  SIZES = 35..40
+
+  def self.sizes
+    35..40
+  end
 
   private
   def create_properties
@@ -22,7 +25,7 @@ class Product < ApplicationRecord
   end
 
   def create_inventories
-    SIZES.each do |size|
+    sizes.each do |size|
       self.inventories << Inventory.create(size: size, quantity: DEFAULT_QUANTITY)
     end
   end

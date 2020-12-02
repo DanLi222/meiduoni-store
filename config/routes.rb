@@ -13,4 +13,6 @@ Rails.application.routes.draw do
     resources :inventories
   end
 
+  get 'add_line_item' => 'line_items#add_line_item'
+
 end
