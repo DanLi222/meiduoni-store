@@ -8,11 +8,11 @@ class ProductsController < ApplicationController
     @disabled_inventories = []
     if params[:product_id].nil?
       @selected_product = @products.first
-      @inventory_array = @selected_product.inventories.map { |inventory| [inventory.size, inventory.id, inventory.quantity]}
+      @inventory_array = @selected_product.inventories.map { |inventory| [inventory.size, inventory.quantity, inventory.id]}
       @disabled_inventories = disabled_inventories(@inventory_array)
     else
       @selected_product = Product.find(params[:product_id])
-      @inventory_array = @selected_product.inventories.map { |inventory| [inventory.size, inventory.id, inventory.quantity]}
+      @inventory_array = @selected_product.inventories.map { |inventory| [inventory.size, inventory.quantity, inventory.id]}
       @disabled_inventories = disabled_inventories(@inventory_array)
       render partial: "product_detail"
     end
@@ -27,7 +27,7 @@ class ProductsController < ApplicationController
     def disabled_inventories(inventory_array)
       disabled_inventories = []
       inventory_array.each do |inventory|
-        if inventory[2] == 0
+        if inventory[1] == 0
           disabled_inventories << inventory
         end
       end
