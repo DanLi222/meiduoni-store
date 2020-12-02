@@ -5,7 +5,9 @@
         items:1
     });
 
-    $('.selectpicker').selectpicker();
+    $('.selectpicker').selectpicker().on('change', function () {
+        $(this).closest('.dropdown').find('.filter-option-inner-inner').addClass('selected');
+    });
 
     $('#productColorPicker').on('change', function () {
         $.ajax({
@@ -123,47 +125,18 @@
           <ul class="list-unstyled small d-inline-block">
             <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">Color:</strong>
               <% products_array = @products.map { |product| [product.color, product.id]} %>
-              <%#= select_tag(:product_id, options_for_select(products_array), {class: "selectpicker"}) %>
-
-              <select id="productColorPicker" class="selectpicker">
-                <%= options_for_select(products_array, selected: @selected_product.id) %>
-              </select>
-
-
-              <!--            <select id="productColorPicker" class="selectpicker" >-->
-              <%#= @products.each do |product| %>
-              <!--                <option><%#= product.color %></option>-->
-              <%# end %>
-              <!--            </select>-->
+                <select id="productColorPicker" class="selectpicker">
+                  <%= options_for_select(products_array, selected: @selected_product.id) %>
+                </select>
             </li>
             <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">Size:</strong>
               <select class="selectpicker">
-                <%= Product.sizes.each do |size| %>
-                  <option><%= size %></option>
-                <% end %>
+                <%= options_for_select((@inventory_array), {disabled: @disabled_inventories.flatten}) %>
               </select>
             </li>
             <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Material:</strong><a class="reset-anchor ml-2" href="#"><%= @selected_product.property.material %></a></li>
             <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Season:</strong><a class="reset-anchor ml-2" href="#"><%= @selected_product.property.season %></a></li>
           </ul>
-          <table>
-            <tr>
-              <th>35</th>
-              <th>36</th>
-              <th>37</th>
-              <th>38</th>
-              <th>39</th>
-              <th>40</th>
-            </tr>
-            <tr>
-              <td><%= @selected_product.inventories.select { |inv| inv.size == "35" }.first.try(:quantity) || 0 %></td>
-              <td><%= @selected_product.inventories.select { |inv| inv.size == "36" }.first.try(:quantity) || 0 %></td>
-              <td><%= @selected_product.inventories.select { |inv| inv.size == "37" }.first.try(:quantity) || 0 %></td>
-              <td><%= @selected_product.inventories.select { |inv| inv.size == "38" }.first.try(:quantity) || 0 %></td>
-              <td><%= @selected_product.inventories.select { |inv| inv.size == "39" }.first.try(:quantity) || 0 %></td>
-              <td><%= @selected_product.inventories.select { |inv| inv.size == "40" }.first.try(:quantity) || 0 %></td>
-            </tr>
-          </table>
         </div>
       </div>
       <!-- DETAILS TABS-->
