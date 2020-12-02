@@ -13,6 +13,4 @@ Rails.application.routes.draw do
     resources :inventories
   end
 
-  get 'find_product' => 'products#find_product'
-
 end
