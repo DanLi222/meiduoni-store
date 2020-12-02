@@ -16,7 +16,6 @@ class ProductsController < ApplicationController
       @disabled_inventories = disabled_inventories(@inventory_array)
       render partial: "product_detail"
     end
-
   end
   
   private
