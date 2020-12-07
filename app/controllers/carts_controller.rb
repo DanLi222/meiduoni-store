@@ -9,7 +9,6 @@ class CartsController < ApplicationController
     @line_items_array.each do |line_item|
       @subtotal += line_item[3] * line_item[2]
     end
-    binding.pry
     @total = @subtotal * BigDecimal("1.13")
   end
 end
