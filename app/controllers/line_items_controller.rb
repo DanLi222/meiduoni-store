@@ -17,6 +17,4 @@ class LineItemsController < ApplicationController
       @line_item.save
     end
   end
-
-
 end

@@ -20,7 +20,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="cart.html">
+            <a class="nav-link" href="<%= cart_path(current_user.carts.last) %>">
               <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Cart<small class="text-gray">(2)</small>
             </a>
           </li>
@@ -34,7 +34,7 @@
               <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.name %></a>
               <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
                 <a class="dropdown-item border-0 transition-link" href="<%= edit_user_registration_path %>">Profile</a>
-                <a class="dropdown-item border-0 transition-link" href="<%= destroy_user_session_path %>" data-method="delete",>Logout</a>
+                <a class="dropdown-item border-0 transition-link" href="<%= destroy_user_session_path %>" data-method="delete">Logout</a>
               </div>
             </li>
           <% else %>
