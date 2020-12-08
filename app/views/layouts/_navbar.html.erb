@@ -21,7 +21,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="<%= cart_path(current_user.carts.last) %>">
-              <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Cart<small class="text-gray">(2)</small>
+              <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Cart<small class="text-gray">(<%= Cart.count %>)</small>
             </a>
           </li>
           <li class="nav-item">
