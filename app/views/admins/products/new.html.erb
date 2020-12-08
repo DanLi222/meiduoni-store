@@ -3,7 +3,6 @@
     <h2 class="h5 text-uppercase mb-4">New Product</h2>
     <div class="row">
       <div class="col-lg-12 mb-4 mb-lg-0">
-        <!-- CART TABLE-->
         <div class="table-responsive mb-4">
           <%= form_for [:admins, @product], html:{multipart: true} do |form| %>
             <p>
@@ -25,7 +24,7 @@
               <%= form.submit html:{class: "btn btn-outline-dark btn-sm"} %>
             </p>
           <% end %>
-      </div>
+        </div>
       </div>
     </div>
   </section>
