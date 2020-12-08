@@ -2,7 +2,7 @@ class LineItemsController < ApplicationController
   def add_line_item
     add_item = true
 
-    @line_items = LineItem.all
+    @line_items = Cart.current_cart(current_user).line_items
     @line_items.each do |line_item|
       if line_item.inventory_id == params['inventory_id'].to_i
         add_item = false
