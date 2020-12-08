@@ -168,7 +168,7 @@
                 <div class="product text-center">
                   <div class="mb-3 position-relative">
                     <div class="badge text-white badge-"></div>
-                    <a class="d-block" href=<%= product_path(product) %>>
+                    <a class="d-block" href="<%= product_path(product.sku) %>">
                       <img class="img-fluid w-100" src="<%= product.image %>" alt="...">
                     </a>
                     <div class="product-overlay">
@@ -179,7 +179,7 @@
                       </ul>
                     </div>
                   </div>
-                  <h6> <a class="reset-anchor" href="detail.html"><%= product.sku %></a></h6>
+                  <h6> <a class="reset-anchor" href="<%= product_path(product.sku) %>"><%= product.sku %></a></h6>
                   <p class="small text-muted"><%= product.property.price %></p>
                   <%= link_to 'Edit', edit_admins_product_path(product) %>
                   <%= link_to 'Destroy', admins_product_path(product),
