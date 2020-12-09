@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_05_010922) do
+ActiveRecord::Schema.define(version: 2020_12_09_001220) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -33,10 +33,30 @@ ActiveRecord::Schema.define(version: 2020_12_05_010922) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "firstName"
+    t.string "lastName"
+    t.string "streetAddress"
+    t.string "apartment"
+    t.string "city"
+    t.string "province"
+    t.string "postalCode"
+    t.string "country"
+    t.string "phoneNumber"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "defaultAddress", default: false
+    t.string "email"
+    t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
+
   create_table "carts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "shipping_address_id"
+    t.integer "billing_address_id"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 

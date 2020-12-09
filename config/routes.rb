@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
 
   resources :carts
+  resources :addresses
 
   get 'add_line_item' => 'line_items#add_line_item'
 
