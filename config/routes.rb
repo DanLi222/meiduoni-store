@@ -14,7 +14,10 @@ Rails.application.routes.draw do
   end
 
   resources :carts
+  resources :addresses
 
   get 'add_line_item' => 'line_items#add_line_item'
+  get 'add_address' => 'addresses#add_address'
+  get 'checkout' => 'checkout#checkout'
 
 end
