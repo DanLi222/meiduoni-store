@@ -22,4 +22,16 @@ class Cart < ApplicationRecord
       end
     end
   end
+
+  def prev_state
+    if self.state == "review"
+      self.update(state: "payment")
+    end
+    if self.state == "payment"
+      self.update(state: "shipping")
+    end
+    if self.state == "shipping"
+      self.update(state: nil)
+    end
+  end
 end

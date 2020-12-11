@@ -1,7 +1,12 @@
 class CheckoutController < ApplicationController
   def checkout
     @current_cart = Cart.current_cart(current_user)
-    @current_cart.next_state
+    if params['prev'] == "true"
+      @current_cart.prev_state
+    end
+    if params['prev'].nil?
+      @current_cart.next_state
+    end
     @current_cart.reload
     @line_items = @current_cart.line_items
     @total = @line_items.map{|item| item.inventory.product.property.price * item.quantity }.sum
