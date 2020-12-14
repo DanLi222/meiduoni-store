@@ -12,14 +12,20 @@
       })
     })
 </script>
-<h1>payment</h1>
-<div class="bg-light px-4 py-3">
-  <div class="row align-items-center text-center">
-    <div class="col-md-6 mb-3 mb-md-0 text-md-left"><a id="editShipping" class="btn btn-link p-0 text-dark btn-sm" href=""><i class="fas fa-long-arrow-alt-left mr-2"></i>Edit shipping</a></div>
-    <div class="col-md-6 text-md-right"><a id="checkout" class="btn btn-outline-dark btn-sm" href="<%= checkout_path %>">Procceed to checkout<i class="fas fa-long-arrow-alt-right ml-2"></i></a></div>
+<div class="col-lg-8">
+  <div class="bg-light jumbotron">
+    <p>Payment Method</p>
+    <p> </p>
+    <div><a class="btn btn-primary btn-large m-2" href="#">Paypal</a></div>
+    <div><a class="btn btn-outline-primary btn-large m-2" href="#">Card</a></div>
+  </div>
+  <div class="bg-light px-4 py-3">
+    <div class="row align-items-center text-center">
+      <div class="col-md-6 mb-3 mb-md-0 text-md-left"><a id="editShipping" class="btn btn-link p-0 text-dark btn-sm" href=""><i class="fas fa-long-arrow-alt-left mr-2"> </i>Edit shipping</a></div>
+      <div class="col-md-6 text-md-right"><div id="paypal-button"></div></div>
+    </div>
   </div>
 </div>
-<div id="paypal-button"></div>
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
     paypal.Button.render({
