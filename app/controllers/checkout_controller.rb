@@ -1,6 +1,10 @@
 class CheckoutController < ApplicationController
   def checkout
     @current_cart = Cart.current_cart(current_user)
+    if params['provider'] == "paypal"
+      @current_cart.update(billing_address_id: @current_cart.shipping_address_id)
+    end
+
     if params['prev'] == "true"
       @current_cart.prev_state
     end
@@ -31,4 +35,5 @@ class CheckoutController < ApplicationController
       Cart.current_cart(current_user).update(shipping_address_id: @address.id)
     end
   end
+
 end
