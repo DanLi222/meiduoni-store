@@ -8,7 +8,16 @@
                 type: "GET",
                 data: {prev: true},
             });
-        })
+        });
+        $('#confirm-button').click(function () {
+          console.log("confirm button clicked")
+            $.ajax({
+                url: "/checkout",
+                contentType: 'text/html',
+                type: "GET",
+                data: {confirm: true},
+            });
+        });
     })
 </script>
 <div class="col-lg-8">
@@ -20,19 +29,8 @@
   <div class="bg-light px-4 py-3">
     <div class="row align-items-center text-center">
       <div class="col-md-6 mb-3 mb-md-0 text-md-left"><a id="editPayment" class="btn btn-link p-0 text-dark btn-sm" href=""><i class="fas fa-long-arrow-alt-left mr-2"> </i>Edit payment</a></div>
-      <div class="col-md-6 text-md-right"><div id="confirm-button">Confirm Order</div></div>
+      <div class="col-md-6 text-md-right"><button id="confirm-button">Confirm Order</button></div>
 
     </div>
   </div>
 </div>
-
-<script>
-    document.querySelector('#confirm-button')
-        .addEventListener('click', function () {
-            var CLIENT =
-                'AQaZ6wR1B_vutfrT3RFc3SsdHC8DiZLNlX9AcEk0_wdEpjVZ5-VsEM_QYbnBqi4ddHdl8Srn0_vghSKX';
-            var SECRET =
-                'EPVPkuiANAR0DPoWiVuwtzsbbdQl_axBKHePCG0hYwroYP28AgexPVe2YQUxv4tiq8YSUIgru_cXcNMr';
-            var PAYPAL_API = 'https://api-m.sandbox.paypal.com';
-        });
-</script>
