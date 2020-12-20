@@ -8,5 +8,6 @@
     <orderEntry type="library" name="all" level="application" />
     <orderEntry type="library" name="6d90f39943" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="checkout" level="application" />
   </component>
 </module>

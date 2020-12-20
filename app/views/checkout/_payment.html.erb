@@ -1,1 +1,71 @@
-<h1>payment</h1>
+<script>
+    $(document).ready(function () {
+      $('#editShipping').click( function() {
+        console.log("edit shipping clicked")
+        $.ajax({
+          url: "",
+          contentType: 'text/html',
+          type: "GET",
+          data: {prev: true},
+        });
+      })
+    })
+</script>
+<div class="col-lg-8">
+  <div class="bg-light jumbotron">
+    <p>Payment Method</p>
+    <div><a class="btn btn-primary btn-large m-2" href="#">Paypal</a></div>
+    <div><a class="btn btn-outline-primary btn-large m-2" href="#">Card</a></div>
+  </div>
+  <div class="bg-light px-4 py-3">
+    <div class="row align-items-center text-center">
+      <div class="col-md-6 mb-3 mb-md-0 text-md-left"><a id="editShipping" class="btn btn-link p-0 text-dark btn-sm" href=""><i class="fas fa-long-arrow-alt-left mr-2"> </i>Edit shipping</a></div>
+      <div class="col-md-6 text-md-right"><div id="paypal-button"></div></div>
+    </div>
+  </div>
+</div>
+<div id="paypal-button"></div>
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+    paypal.Button.render({
+        // Configure environment
+        env: 'sandbox',
+        client: {
+            sandbox: '<%= Rails.application.config.paypal_client_id %>',
+            production: ''
+        },
+        // Customize button (optional)
+        locale: 'en_US',
+        style: {
+            size: 'small',
+            color: 'gold',
+            shape: 'pill',
+        },
+
+        // Enable Pay Now checkout flow (optional)
+        commit: true,
+
+        // Set up a payment
+        payment: function(data, actions) {
+            return actions.payment.create({
+                transactions: [{
+                    amount: {
+                        total: '0.01',
+                        currency: 'USD'
+                    }
+                }],
+                redirect_urls: {
+                    return_url: '/checkout?provider=paypal'
+                }
+            });
+        },
+        onAuthorize: function(data, actions) {
+            return actions.payment.get().then (function (){
+                actions.redirect()
+            })
+
+        }
+    }, '#paypal-button');
+
+</script>
