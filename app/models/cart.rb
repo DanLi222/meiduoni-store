@@ -1,5 +1,6 @@
 class Cart < ApplicationRecord
   belongs_to :user
+  belongs_to :payment, optional: true
   has_many :line_items
   scope :user_carts, -> (user) { where(user_id: user.id) }
 
@@ -19,6 +20,10 @@ class Cart < ApplicationRecord
     elsif self.state == "payment"
       unless self.billing_address_id.nil?
         self.update(state: "review")
+      end
+    elsif self.state == "review"
+      if self.payment.state == "completed"
+        self.update(state: "paid")
       end
     end
   end

@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   resources :addresses
 
   get 'add_line_item' => 'line_items#add_line_item'
-  get 'add_address' => 'addresses#add_address'
+  get 'add_address' => 'checkout#add_address'
   get 'checkout' => 'checkout#checkout'
+  get 'update_billing_address' => 'checkout#update_billing_address'
 
 end

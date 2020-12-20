@@ -1,1 +1,36 @@
-<h1>review</h1>
+<script>
+    $(document).ready(function () {
+        $('#editPayment').click( function() {
+            console.log("edit payment clicked")
+            $.ajax({
+                url: "",
+                contentType: 'text/html',
+                type: "GET",
+                data: {prev: true},
+            });
+        });
+        $('#confirm-button').click(function () {
+          console.log("confirm button clicked")
+            $.ajax({
+                url: "/checkout",
+                contentType: 'text/html',
+                type: "GET",
+                data: {confirm: true},
+            });
+        });
+    })
+</script>
+<div class="col-lg-8">
+  <div class="bg-light jumbotron">
+    <p>Confirm Order</p>
+    <div><a class="btn btn-primary btn-large m-2" href="#">item</a></div>
+    <div><a class="btn btn-outline-primary btn-large m-2" href="#">total</a></div>
+  </div>
+  <div class="bg-light px-4 py-3">
+    <div class="row align-items-center text-center">
+      <div class="col-md-6 mb-3 mb-md-0 text-md-left"><a id="editPayment" class="btn btn-link p-0 text-dark btn-sm" href=""><i class="fas fa-long-arrow-alt-left mr-2"> </i>Edit payment</a></div>
+      <div class="col-md-6 text-md-right"><button id="confirm-button">Confirm Order</button></div>
+
+    </div>
+  </div>
+</div>

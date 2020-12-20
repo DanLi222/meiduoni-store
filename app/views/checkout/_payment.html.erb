@@ -25,6 +25,8 @@
     </div>
   </div>
 </div>
+<div id="paypal-button"></div>
+
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
     paypal.Button.render({
@@ -53,17 +55,29 @@
                         total: '0.01',
                         currency: 'USD'
                     }
-                }]
+                }],
+                redirect_urls: {
+                    return_url: '/checkout?provider=paypal'
+                }
             });
         },
         // Execute the payment
+        // onAuthorize: function(data, actions) {
+        //     return actions.payment.execute().then(function() {
+        //         $.ajax({
+        //             url: "/update_billing_address",
+        //             contentType: 'text/html',
+        //             type: "GET",
+        //             data: {payment_id: 1},
+        //         });
+        //         actions.redirect(actions, data);
+        //     });
+        // }
         onAuthorize: function(data, actions) {
-            return actions.payment.execute().then(function() {
-                console.log(data)
-                console.log(actions)
-                // Show a confirmation message to the buyer
-                window.alert('Thank you for your purchase!');
-            });
+            return actions.payment.get().then (function (){
+                actions.redirect()
+            })
+
         }
     }, '#paypal-button');
 
