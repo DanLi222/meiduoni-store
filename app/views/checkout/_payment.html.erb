@@ -1,4 +1,3 @@
-
 <script>
     $(document).ready(function () {
       $('#editShipping').click( function() {
@@ -61,18 +60,6 @@
                 }
             });
         },
-        // Execute the payment
-        // onAuthorize: function(data, actions) {
-        //     return actions.payment.execute().then(function() {
-        //         $.ajax({
-        //             url: "/update_billing_address",
-        //             contentType: 'text/html',
-        //             type: "GET",
-        //             data: {payment_id: 1},
-        //         });
-        //         actions.redirect(actions, data);
-        //     });
-        // }
         onAuthorize: function(data, actions) {
             return actions.payment.get().then (function (){
                 actions.redirect()
