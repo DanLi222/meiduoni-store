@@ -1,10 +1,5 @@
 <script>
     $(document).ready(function () {
-      $("#checkout_partial").html("<%= escape_javascript(render partial: @state) %>");
-    })
-</script>
-<script>
-    $(document).ready(function () {
         $('#placeOrder').click(function () {
             $.ajax({
                 url: "",
@@ -22,10 +17,7 @@
                     apartment: $('#apartment').val(),
                     city: $('#city').val(),
                     province: $('#province').val(),
-                }),
-                success: function () {
-                  $("#checkout_partial").html("<%= escape_javascript(render partial: @state) %>");
-                }
+                })
             });
         })
     })
@@ -53,8 +45,8 @@
   <section class="py-5">
     <!-- BILLING ADDRESS-->
     <h2 class="h5 text-uppercase mb-4"><%= @state %></h2>
-    <div id="checkout_partial" class="row">
-      # <%= render partial: @state %>
+    <div class="row">
+      <%= render partial: @state %>
       <!-- ORDER SUMMARY-->
       <div class="col-lg-4">
         <div class="card border-0 rounded-0 p-lg-4 bg-light">
