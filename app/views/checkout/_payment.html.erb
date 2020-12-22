@@ -19,67 +19,62 @@
   </div>
   <div class="bg-light px-4 py-3">
     <div class="row align-items-center text-center">
-      <div class="col-md-6 mb-3 mb-md-0 text-md-left"><a id="editShipping" class="btn btn-link p-0 text-dark btn-sm" href=""><i class="fas fa-long-arrow-alt-left mr-2"> </i>Edit shipping</a></div>
+      <div class="col-md-6 mb-3 mb-md-0 text-md-left"><div id="editShipping" class="btn btn-link p-0 text-dark btn-sm"><i class="fas fa-long-arrow-alt-left mr-2"> </i>Edit shipping</div></div>
       <div class="col-md-6 text-md-right"><div id="paypal-button"></div></div>
     </div>
   </div>
 </div>
-<div id="paypal-button"></div>
 
-<script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
-    paypal.Button.render({
-        // Configure environment
-        env: 'sandbox',
-        client: {
-            sandbox: '<%= Rails.application.config.paypal_client_id %>',
-            production: ''
-        },
-        // Customize button (optional)
-        locale: 'en_US',
-        style: {
-            size: 'small',
-            color: 'gold',
-            shape: 'pill',
-        },
+    $(document).ready(function () {
+        paypal.Button.render({
+            // Configure environment
+            env: 'sandbox',
+            client: {
+                sandbox: '<%= Rails.application.config.paypal_client_id %>',
+                production: ''
+            },
+            // Customize button (optional)
+            locale: 'en_US',
+            style: {
+                size: 'small',
+                color: 'gold',
+                shape: 'pill',
+            },
 
-        // Enable Pay Now checkout flow (optional)
-        commit: true,
+            // Enable Pay Now checkout flow (optional)
+            commit: true,
 
-        // Set up a payment
-        payment: function(data, actions) {
-            return actions.payment.create({
-                transactions: [{
-                    amount: {
-                        total: '0.01',
-                        currency: 'USD'
+            // Set up a payment
+            payment: function(data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                        amount: {
+                            total: '0.01',
+                            currency: 'USD'
+                        }
+                    }],
+                    redirect_urls: {
+                        return_url: '/checkout?provider=paypal'
                     }
-                }],
-                redirect_urls: {
-                    return_url: '/checkout?provider=paypal'
-                }
-            });
-        },
-        onAuthorize: function(data, actions) {
-            return actions.payment.get().then (function (){
-                console.log(data)
-                console.log(data.paymentToken)
-                console.log(data.payerID)
-                console.log(data.paymentID)
-                $.ajax({
-                    url: "/checkout",
-                    contentType: 'application/json',
-                    type: "POST",
-                    data: JSON.stringify({
-                        "provider": "paypal",
-                        "token": data.paymentToken,
-                        "payer_id": data.payerID,
-                        "payment_id": data.paymentID
-                    }),
                 });
-            })
+            },
+            onAuthorize: function(data, actions) {
+                return actions.payment.get().then (function (){
+                    $.ajax({
+                        url: "/checkout",
+                        contentType: 'application/json',
+                        type: "POST",
+                        data: JSON.stringify({
+                            "provider": "paypal",
+                            "token": data.paymentToken,
+                            "payer_id": data.payerID,
+                            "payment_id": data.paymentID
+                        }),
+                    });
+                })
 
-        }
-    }, '#paypal-button');
-
+            }
+        }, '#paypal-button');
+    });
 </script>

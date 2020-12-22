@@ -1,30 +1,5 @@
-<script>
-    $(document).ready(function () {
-        $('#placeOrder').click(function () {
-            console.log("clicked place order")
-            $.ajax({
-                url: "/add_address",
-                contentType: 'text/html',
-                type: "GET",
-                data: {
-                    firstName: $('#firstName').val(),
-                    lastName: $('#lastName').val(),
-                    email: $('#email').val(),
-                    phoneNumber: $('#phoneNumber').val(),
-                    postalCode: $('#postalCode').val(),
-                    country: $('#country').val(),
-                    streetAddress: $('#streetAddress').val(),
-                    apartment: $('#apartment').val(),
-                    city: $('#city').val(),
-                    province: $('#province').val(),
-                },
-            });
-        })
-    })
-</script>
 <!-- BILLING ADDRESS-->
   <div class="col-lg-8">
-    <form action="#">
       <div class="row">
         <div class="col-lg-6 form-group">
           <label class="text-small text-uppercase" for="firstName">First name</label>
@@ -120,8 +95,7 @@
           </div>
         </div>
         <div class="col-lg-12 form-group">
-          <button id="placeOrder" class="btn btn-dark" type="submit"><a href="<%= checkout_path %>">Place order</a></button>
+          <div id="placeOrder" class="btn btn-dark" value="Place order">Place order</div>
         </div>
       </div>
-    </form>
   </div>
