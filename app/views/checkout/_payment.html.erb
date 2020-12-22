@@ -62,7 +62,21 @@
         },
         onAuthorize: function(data, actions) {
             return actions.payment.get().then (function (){
-                actions.redirect()
+                console.log(data)
+                console.log(data.paymentToken)
+                console.log(data.payerID)
+                console.log(data.paymentID)
+                $.ajax({
+                    url: "/checkout",
+                    contentType: 'application/json',
+                    type: "POST",
+                    data: JSON.stringify({
+                        "provider": "paypal",
+                        "token": data.paymentToken,
+                        "payer_id": data.payerID,
+                        "payment_id": data.paymentID
+                    }),
+                });
             })
 
         }

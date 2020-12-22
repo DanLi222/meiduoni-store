@@ -1,8 +1,10 @@
 class CheckoutController < ApplicationController
   def checkout
     @current_cart = Cart.current_cart(current_user)
+
     if params['provider'] == "paypal"
-      payment = Payment.create(provider: 'paypal', payer_id: params['PayerID'], payment_id: params['paymentId'], token: params['token'], state: "pending")
+      payment = Payment.create(provider: 'paypal', payer_id: params['payer_id'], payment_id: params['payment_id'], token: params['token'], state: "pending")
+      
       unless @current_cart.payment.nil? 
         @current_cart.payment.update(state: "cancelled")
       end
