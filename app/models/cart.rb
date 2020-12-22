@@ -35,8 +35,8 @@ class Cart < ApplicationRecord
     if self.state == "payment"
       self.update(state: "shipping")
     end
-    if self.state == "shipping"
-      self.update(state: nil)
-    end
+    # if self.state == "shipping"
+    #   self.update(state: nil)
+    # end
   end
 end
