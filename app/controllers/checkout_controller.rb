@@ -26,7 +26,6 @@ class CheckoutController < ApplicationController
     end
     @current_cart.reload
     @line_items = @current_cart.line_items
-    @total = @line_items.map{|item| item.inventory.product.property.price * item.quantity }.sum
     @state = @current_cart.state
   end
 
@@ -56,36 +55,36 @@ class CheckoutController < ApplicationController
       unless @current_cart.payment.nil? 
         @current_cart.payment.update(state: "cancelled")
       end
+
       @current_cart.update(billing_address_id: @current_cart.shipping_address_id, payment_id: payment.id)
     end
   end
 
   def confirm_payment
-    if params['confirm'] == 'true'
-      payment = @current_cart.payment
-      headers = {
-        Authorization: "Bearer A21AAKlSJFztDn99rjzy9lfYiCN8S0tMCVJM8mNVg5XbNrcCAUzb7CVbKDQ2qYZMV_JboaKjWcrPk2SEJnWDH0UghOKtpbt_Q",
-        "Content-Type": "application/json"
-      }
-      body = {
-          payer_id: payment.payer_id,
-          transactions: [
+    payment = @current_cart.payment
+    headers = {
+      Authorization: "Bearer A21AAL484Mjs2HqR-B-4JraMzBnttKfWFrmcRSq_SMX_MbZivIaLeHHAx_HGGJoTUANsV3zUBhwdXC-NaJ990_nDEAXDOZkQg",
+      "Content-Type": "application/json"
+    }
+    body = {
+        payer_id: payment.payer_id,
+        transactions: [
+        {
+          amount:
           {
-            amount:
-            {
-              total: '10.99',
-              currency: 'USD'
-            }
-          }]
-      }
-      result = HTTParty.post(
-          "https://api-m.sandbox.paypal.com/v1/payments/payment/#{payment.payment_id}/execute",
-          headers: headers,
-          body: body.to_json
-      )
-      if result["state"] == "approved"
-        @current_cart.payment.update(state: "completed")
-      end
+            total: @current_cart.total,
+            currency: 'CAD'
+          }
+        }]
+    }
+    result = HTTParty.post(
+        "https://api-m.sandbox.paypal.com/v1/payments/payment/#{payment.payment_id}/execute",
+        headers: headers,
+        body: body.to_json
+    )
+
+    if result["state"] == "approved"
+      @current_cart.payment.update(state: "completed")
     end
   end
 end

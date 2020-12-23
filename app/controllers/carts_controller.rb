@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   def show
-    @cart = current_user.carts.last
+    @cart = Cart.current_cart(current_user)
     @line_items_array = @cart.line_items.map do |line_item|
       {
         image: line_item.inventory.product.image,
@@ -15,6 +15,6 @@ class CartsController < ApplicationController
     @line_items_array.each do |line_item|
       @subtotal += line_item[:price] * line_item[:quantity]
     end
-    @total = @subtotal * BigDecimal("1.13")
+    @cart.update(total: @subtotal * BigDecimal("1.13"))
   end
 end
