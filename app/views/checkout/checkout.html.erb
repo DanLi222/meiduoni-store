@@ -1,26 +1,108 @@
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#placeOrder').click(function () {
-            $.ajax({
-                url: "",
-                contentType: 'application/json',
-                type: "POST",
-                data: JSON.stringify({
-                    checkout_action: 'add_address',
-                    firstName: $('#firstName').val(),
-                    lastName: $('#lastName').val(),
-                    email: $('#email').val(),
-                    phoneNumber: $('#phoneNumber').val(),
-                    postalCode: $('#postalCode').val(),
-                    country: $('#country').val(),
-                    streetAddress: $('#streetAddress').val(),
-                    apartment: $('#apartment').val(),
-                    city: $('#city').val(),
-                    province: $('#province').val(),
-                })
-            });
-        })
+  $(document).ready(function () {
+    $('#placeOrder').click(function () {
+      console.log("place order clicked");
+        $.ajax({
+          url: "",
+          contentType: 'application/json',
+          type: "POST",
+          data: JSON.stringify({
+            checkout_action: 'add_address',
+            firstName: $('#firstName').val(),
+            lastName: $('#lastName').val(),
+            email: $('#email').val(),
+            phoneNumber: $('#phoneNumber').val(),
+            postalCode: $('#postalCode').val(),
+            country: $('#country').val(),
+            streetAddress: $('#streetAddress').val(),
+            apartment: $('#apartment').val(),
+            city: $('#city').val(),
+            province: $('#province').val(),
+          })
+      });
     })
+
+    $('#editShipping').click( function() {
+      console.log("edit shipping clicked")
+      $.ajax({
+        url: "",
+        contentType: 'text/html',
+        type: "GET",
+        data: {prev: true},
+      });
+    })
+
+    paypal.Button.render({
+      // Configure environment
+      env: 'sandbox',
+      client: {
+        sandbox: '<%= Rails.application.config.paypal_client_id %>',
+        production: ''
+      },
+      // Customize button (optional)
+      locale: 'en_US',
+      style: {
+        size: 'small',
+        color: 'gold',
+        shape: 'pill',
+      },
+
+      // Enable Pay Now checkout flow (optional)
+      commit: true,
+
+      // Set up a payment
+      payment: function(data, actions) {
+        return actions.payment.create({
+          transactions: [{
+            amount: {
+                total: '<%= @current_cart.total %>',
+                currency: 'CAD'
+            }
+          }]
+        });
+      },
+      onAuthorize: function(data, actions) {
+        return actions.payment.get().then (function (){
+          console.log("paypal button clicked")
+          $.ajax({
+            url: "/checkout",
+            contentType: 'application/json',
+            type: "POST",
+            data: JSON.stringify({
+              "checkout_action": "add_payment",
+              "provider": "paypal",
+              "token": data.paymentToken,
+              "payer_id": data.payerID,
+              "payment_id": data.paymentID
+            }),
+          });
+        })
+      }
+    }, '#paypal-button');
+
+    $('#editPayment').click( function() {
+      console.log("edit payment clicked")
+      $.ajax({
+        url: "",
+        contentType: 'text/html',
+        type: "GET",
+        data: {prev: true},
+      });
+    });
+
+    $('#confirm-button').click(function () {
+      console.log("confirm button clicked")
+      $.ajax({
+        url: "/checkout",
+        contentType: 'text/html',
+        type: "GET",
+        data: {
+          "checkout_action": "confirm_payment"
+        },
+      });
+    });
+  })
 </script>
 <div class="container">
   <!-- HERO SECTION-->
@@ -59,7 +141,7 @@
                 </li>
                 <li class="border-bottom my-2"></li>
               <% end %>
-              <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Total</strong><span><%= @total %></span></li>
+              <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Estimated Total</strong><span><%= @current_cart.total %></span></li>
             </ul>
           </div>
         </div>
