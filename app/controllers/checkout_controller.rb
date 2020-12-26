@@ -3,6 +3,10 @@ class CheckoutController < ApplicationController
     @current_cart = Cart.current_cart(current_user)
     initial_state = @current_cart.state
 
+    if params['checkout_action'] == 'start_checkout'
+      move_next = true
+    end
+
     if params['checkout_action'] == 'add_address'
       add_address
       move_next = true
@@ -63,7 +67,7 @@ class CheckoutController < ApplicationController
   def confirm_payment
     payment = @current_cart.payment
     headers = {
-      Authorization: "Bearer A21AAL484Mjs2HqR-B-4JraMzBnttKfWFrmcRSq_SMX_MbZivIaLeHHAx_HGGJoTUANsV3zUBhwdXC-NaJ990_nDEAXDOZkQg",
+      Authorization: "Bearer A21AAIkh0Qymn2se_ri4tpY-sRv7QhcJEft_mq-zjnnml4fWBy4_C4tiPYGF7JGX-tnsRdMDenpeXuOTwGaxXk5_X7b-GSkEA",
       "Content-Type": "application/json"
     }
     body = {

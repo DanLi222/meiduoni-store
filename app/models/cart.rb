@@ -9,23 +9,24 @@ class Cart < ApplicationRecord
   end
 
   def next_state
-    if self.state.nil?
+    case self.state
+    when nil
       if self.line_items.count > 0
         self.update(state: "shipping")
       end
-    elsif self.state == "shipping"
+    when "shipping"
       unless self.shipping_address_id.nil?
         self.update(state: "payment")
       end
-    elsif self.state == "payment"
+    when "payment"
       unless self.billing_address_id.nil?
         self.update(state: "review")
       end
-    elsif self.state == "review"
+    when "review"
       if self.payment.state == "completed"
-        self.update(state: "paid")
+        self.update(state: "summary")
       end
-    end
+    end 
   end
 
   def prev_state
@@ -35,8 +36,5 @@ class Cart < ApplicationRecord
     if self.state == "payment"
       self.update(state: "shipping")
     end
-    # if self.state == "shipping"
-    #   self.update(state: nil)
-    # end
   end
 end

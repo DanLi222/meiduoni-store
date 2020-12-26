@@ -82,6 +82,9 @@
               "payer_id": data.payerID,
               "payment_id": data.paymentID
             }),
+            success: function () {
+              window.location.href = "<%= checkout_path %>"
+            }
           });
         })
       }
@@ -106,6 +109,9 @@
         data: {
           "checkout_action": "confirm_payment"
         },
+        success: function () {
+          window.location.href = "<%= checkout_path %>"
+        }
       });
     });
   })
