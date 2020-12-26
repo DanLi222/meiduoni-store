@@ -1,21 +1,36 @@
 <script>
-    $(document).ready(function () {
-        $('#quantity').on('change', function () {
-            document.getElementById('single_item_total').innerHTML = $('#price').val() * $('#quantity').val();
-        });
+  $(document).ready(function () {
+    $('#quantity').on('change', function () {
+      document.getElementById('single_item_total').innerHTML = $('#price').val() * $('#quantity').val();
+    });
 
-        $('.dec-btn').click(function () {
-            var siblings = $(this).siblings('input');
-            if (parseInt(siblings.val(), 10) >= 1) {
-                siblings.val(parseInt(siblings.val(), 10) - 1);
-            }
-        });
+    $('.dec-btn').click(function () {
+      var siblings = $(this).siblings('input');
+      if (parseInt(siblings.val(), 10) >= 1) {
+        siblings.val(parseInt(siblings.val(), 10) - 1);
+      }
+    });
 
-        $('.inc-btn').click(function () {
-            var siblings = $(this).siblings('input');
-            siblings.val(parseInt(siblings.val(), 10) + 1);
-        });
+    $('.inc-btn').click(function () {
+      var siblings = $(this).siblings('input');
+      siblings.val(parseInt(siblings.val(), 10) + 1);
+    });
+
+    $('#checkout').click(function () {
+      console.log("checkout button clicked")
+      $.ajax({
+        url: "/checkout",
+        contentType: 'application/json',
+        type: "POST",
+        data: JSON.stringify({
+          checkout_action: "start_checkout"
+        }),
+        success: function () {
+          window.location.href = "<%= checkout_path %>"
+        }
+      })
     })
+  })
 </script>
 
 <div class="container">
@@ -86,7 +101,7 @@
         <div class="bg-light px-4 py-3">
           <div class="row align-items-center text-center">
             <div class="col-md-6 mb-3 mb-md-0 text-md-left"><a class="btn btn-link p-0 text-dark btn-sm" href="<%= products_path %>"><i class="fas fa-long-arrow-alt-left mr-2"> </i>Continue shopping</a></div>
-            <div class="col-md-6 text-md-right"><a id="checkout" class="btn btn-outline-dark btn-sm" href="<%= checkout_path %>">Procceed to checkout<i class="fas fa-long-arrow-alt-right ml-2"></i></a></div>
+            <div class="col-md-6 text-md-right"><button id="checkout" class="btn btn-outline-dark btn-sm">Procceed to checkout<i class="fas fa-long-arrow-alt-right ml-2"></i></button></div>
           </div>
         </div>
       </div>
