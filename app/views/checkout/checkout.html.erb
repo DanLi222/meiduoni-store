@@ -19,7 +19,10 @@
             apartment: $('#apartment').val(),
             city: $('#city').val(),
             province: $('#province').val(),
-          })
+          }),
+          success: function () {
+            window.location.href = "<%= checkout_path %>"
+          }
       });
     })
 
@@ -30,6 +33,9 @@
         contentType: 'text/html',
         type: "GET",
         data: {prev: true},
+        success: function () {
+          window.location.href = "<%= checkout_path %>"
+        }
       });
     })
 
@@ -129,6 +135,7 @@
     <h2 class="h5 text-uppercase mb-4"><%= @state %></h2>
     <div class="row">
       <%= render partial: @state %>
+      
       <!-- ORDER SUMMARY-->
       <div class="col-lg-4">
         <div class="card border-0 rounded-0 p-lg-4 bg-light">
