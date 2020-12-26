@@ -34,7 +34,7 @@ class CheckoutController < ApplicationController
   end
 
   def add_address
-    @address = Address.create(
+    @address = Address.new(
         firstName: params['firstName'],
         lastName: params['lastName'],
         email: params['email'],
