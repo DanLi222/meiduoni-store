@@ -9,8 +9,9 @@ class Cart < ApplicationRecord
   end
 
   def next_state
+    self.reload
     case self.state
-    when nil
+    when "init"
       if self.line_items.count > 0
         self.update(state: "shipping")
       end
@@ -27,6 +28,7 @@ class Cart < ApplicationRecord
         self.update(state: "summary")
       end
     end 
+    
   end
 
   def prev_state

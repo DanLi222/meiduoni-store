@@ -1,3 +1,55 @@
+<script>
+paypal.Button.render({
+    // Configure environment
+    env: 'sandbox',
+    client: {
+      sandbox: '<%= Rails.application.config.paypal_client_id %>',
+      production: ''
+    },
+    // Customize button (optional)
+    locale: 'en_US',
+    style: {
+      size: 'small',
+      color: 'gold',
+      shape: 'pill',
+    },
+
+    // Enable Pay Now checkout flow (optional)
+    commit: true,
+
+    // Set up a payment
+    payment: function(data, actions) {
+      return actions.payment.create({
+        transactions: [{
+          amount: {
+              total: '<%= @current_cart.total %>',
+              currency: 'CAD'
+          }
+        }]
+      });
+    },
+    onAuthorize: function(data, actions) {
+      return actions.payment.get().then (function (){
+        console.log("paypal button clicked")
+        $.ajax({
+          url: "/checkout",
+          contentType: 'application/json',
+          type: "POST",
+          data: JSON.stringify({
+            "checkout_action": "add_payment",
+            "provider": "paypal",
+            "token": data.paymentToken,
+            "payer_id": data.payerID,
+            "payment_id": data.paymentID
+          }),
+          success: function () {
+            window.location.href = "<%= checkout_path %>"
+          }
+        });
+      })
+    }
+  }, '#paypal-button');
+</script>
 <div class="col-lg-8">
   <div class="bg-light jumbotron">
     <p>Payment Method</p>
