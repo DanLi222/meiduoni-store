@@ -26,6 +26,19 @@
       });
     })
 
+    $('#backToCart').click( function() {
+      console.log("back to cart clicked")
+      $.ajax({
+        url: "",
+        contentType: 'text/html',
+        type: "GET",
+        data: {prev: true},
+        success: function () {
+          window.location.href = "<%= cart_path(@current_cart) %>"
+        }
+      });
+    })
+
     $('#editShipping').click( function() {
       console.log("edit shipping clicked")
       $.ajax({
@@ -47,6 +60,9 @@
         contentType: 'text/html',
         type: "GET",
         data: {prev: true},
+        success: function () {
+          window.location.href = "<%= checkout_path %>"
+        }
       });
     });
 
@@ -87,7 +103,7 @@
     </div>
   </section>
   <section class="py-5">
-    <!-- BILLING ADDRESS-->
+    <!-- CHECKOUT PARTIAL-->
     <h2 class="h5 text-uppercase mb-4"><%= @state %></h2>
     <div class="row">
       <%= render partial: @state %>

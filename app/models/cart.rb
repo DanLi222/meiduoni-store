@@ -34,9 +34,10 @@ class Cart < ApplicationRecord
   def prev_state
     if self.state == "review"
       self.update(state: "payment")
-    end
-    if self.state == "payment"
+    elsif self.state == "payment"
       self.update(state: "shipping")
+    elsif self.state == "shipping"
+      self.update(state: "init")
     end
   end
 end
