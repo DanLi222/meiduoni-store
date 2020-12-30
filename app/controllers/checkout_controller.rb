@@ -31,6 +31,9 @@ class CheckoutController < ApplicationController
     @current_cart.reload
     @line_items = @current_cart.line_items
     @state = @current_cart.state
+    if @state == "init"
+      redirect_to cart_path(@current_cart)
+    end
   end
 
   def add_address
@@ -67,7 +70,7 @@ class CheckoutController < ApplicationController
   def confirm_payment
     payment = @current_cart.payment
     headers = {
-      Authorization: "Bearer A21AAIkh0Qymn2se_ri4tpY-sRv7QhcJEft_mq-zjnnml4fWBy4_C4tiPYGF7JGX-tnsRdMDenpeXuOTwGaxXk5_X7b-GSkEA",
+      Authorization: "Bearer A21AAIzp6I0gqBa7eKgO5DvHQ3xRCkNVri73TITFq66EKsuswaZUzG1mBNDFyvr46PNH4I3gi-PxIMZA59MAqQvbVBw56nEzg",
       "Content-Type": "application/json"
     }
     body = {
