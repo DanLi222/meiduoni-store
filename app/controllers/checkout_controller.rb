@@ -68,9 +68,11 @@ class CheckoutController < ApplicationController
   end
 
   def confirm_payment
+    token = Paypal::PaypalAuthenticator.new.call
+ 
     payment = @current_cart.payment
     headers = {
-      Authorization: "Bearer A21AAIzp6I0gqBa7eKgO5DvHQ3xRCkNVri73TITFq66EKsuswaZUzG1mBNDFyvr46PNH4I3gi-PxIMZA59MAqQvbVBw56nEzg",
+      Authorization: "Bearer #{token.access_token}",
       "Content-Type": "application/json"
     }
     body = {

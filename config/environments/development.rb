@@ -62,8 +62,4 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # Paypal configuration
-  config.paypal_client_id = 'AQaZ6wR1B_vutfrT3RFc3SsdHC8DiZLNlX9AcEk0_wdEpjVZ5-VsEM_QYbnBqi4ddHdl8Srn0_vghSKX'
-  config.paypal_secret = 'EPVPkuiANAR0DPoWiVuwtzsbbdQl_axBKHePCG0hYwroYP28AgexPVe2YQUxv4tiq8YSUIgru_cXcNMr'
-
 end

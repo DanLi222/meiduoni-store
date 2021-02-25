@@ -1,0 +1,2 @@
+class PaypalToken < ApplicationRecord
+end
