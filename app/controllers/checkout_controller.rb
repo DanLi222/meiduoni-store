@@ -69,7 +69,8 @@ class CheckoutController < ApplicationController
 
   def confirm_payment
     token = Paypal::PaypalAuthenticator.new.call
- 
+    return if token.nil?
+    
     payment = @current_cart.payment
     headers = {
       Authorization: "Bearer #{token.access_token}",
