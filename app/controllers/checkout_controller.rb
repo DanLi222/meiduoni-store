@@ -4,7 +4,10 @@ class CheckoutController < ApplicationController
     initial_state = @current_cart.state
 
     if params['checkout_action'] == 'start_checkout'
-      move_next = true
+      unless params['line_items'].nil? 
+        isUpdated = update_line_items && update_cart_total
+        move_next = true if isUpdated
+      end
     end
 
     if params['checkout_action'] == 'add_address'
@@ -34,6 +37,21 @@ class CheckoutController < ApplicationController
     if @state == "init"
       redirect_to cart_path(@current_cart)
     end
+  end
+
+  def update_line_items
+    cart_line_items = params['line_items']
+    result = cart_line_items.map do |item|
+      params_line_item = JSON.parse(item)
+      line_item = @current_cart.line_items.filter { |li| li.id == params_line_item["id"] }.first
+      line_item.update(quantity: params_line_item["quantity"])
+    end
+    !result.include?(false) 
+  end
+
+  def update_cart_total
+    cart_subtotal = @current_cart.line_items.map { |item| item.price * item.quantity }.sum
+    @current_cart.update(subtotal: cart_subtotal, total: cart_subtotal * 1.13)
   end
 
   def add_address

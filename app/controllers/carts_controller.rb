@@ -3,6 +3,7 @@ class CartsController < ApplicationController
     @cart = Cart.current_cart(current_user)
     @line_items_array = @cart.line_items.map do |line_item|
       {
+        id: line_item.id,
         image: line_item.inventory.product.image,
         sku: line_item.inventory.product.sku,
         price: line_item.inventory.product.property.price,
