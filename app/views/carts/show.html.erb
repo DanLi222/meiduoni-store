@@ -1,19 +1,43 @@
 <script>
   $(document).ready(function () {
-    $('#quantity').on('change', function () {
-      document.getElementById('single_item_total').innerHTML = $('#price').val() * $('#quantity').val();
-    });
 
-    $('.dec-btn').click(function () {
+    var line_items = JSON.parse($('#line_items').val())
+    console.log(line_items)
+
+    updateTotals()
+
+    function updateTotals(){
+      var subtotal = 0
+      line_items.forEach((item) => {
+        subtotal += updateSingleTotal(item.id)
+      })
+      document.getElementById('cart-subtotal').innerHTML = (Math.round(subtotal * 100) / 100).toFixed(2)
+      document.getElementById('cart-total').innerHTML = (Math.round(subtotal * 113) / 100).toFixed(2)
+    }
+
+    function updateSingleTotal(line_item_id){
+      var price = parseInt($('#price-' + line_item_id).text())
+      var quantity = $('#quantity-' + line_item_id).val()
+      var line_item_amount = price * quantity
+      document.getElementById('single_item_total-' + line_item_id).innerHTML = line_item_amount
+      return line_item_amount
+    }
+
+    $('.cart-dec-btn').click(function () {
+      
+      var line_item_id = this.className.split(' ')[0];
       var siblings = $(this).siblings('input');
-      if (parseInt(siblings.val(), 10) >= 1) {
+      if (parseInt(siblings.val(), 10) > 1) {
         siblings.val(parseInt(siblings.val(), 10) - 1);
       }
+      updateTotals(line_item_id)
     });
 
-    $('.inc-btn').click(function () {
+    $('.cart-inc-btn').click(function () {
+      var line_item_id = this.className.split(' ')[0];
       var siblings = $(this).siblings('input');
-      siblings.val(parseInt(siblings.val(), 10) + 1);
+      siblings.val(parseInt(siblings.val(), 0) + 1);
+      updateTotals(line_item_id)
     });
 
     $('#checkout').click(function () {
@@ -69,6 +93,7 @@
             </tr>
             </thead>
             <tbody>
+            <input type="hidden" name="line_items" id="line_items" value='<%= @line_items_array.to_json %>'  />
               <% @line_items_array.each do |line_item| %>
                 <tr>
                   <th class="pl-0 border-0" scope="row">
@@ -77,19 +102,19 @@
                     </div>
                   </th>
                   <td class="align-middle border-0">
-                    <p id="price" class="mb-0 small"><%= line_item[:price] %></p>
+                    <p id="price-<%= line_item[:id] %>" class="mb-0 small"><%= line_item[:price] %></p>
                   </td>
                   <td class="align-middle border-0">
                     <div class="border d-flex align-items-center justify-content-between px-3"><span class="small text-uppercase text-gray headings-font-family">size: <%= line_item[:size] %></span>
                       <div class="quantity">
-                        <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                        <input id="quantity" class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value="<%= line_item[:quantity] %>"/>
-                        <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                        <button id="cart-dec-btn" class="<%= line_item[:id] %> cart-dec-btn"><i class="fas fa-caret-left"></i></button>
+                        <input id="quantity-<%= line_item[:id] %>" class="line_item_quantity form-control form-control-sm border-0 shadow-0 p-0" type="text" value="<%= line_item[:quantity] %>"/>
+                        <button id="cart-inc-btn" class="<%= line_item[:id] %> cart-inc-btn"><i class="fas fa-caret-right"></i></button>
                       </div>
                     </div>
                   </td>
                   <td class="align-middle border-0">
-                    <p class="mb-0 small" id="single_item_total"><%= line_item[:price].to_i * line_item[:quantity].to_i %></p>
+                    <p class="mb-0 small" id="single_item_total-<%= line_item[:id] %>"><%= line_item[:price].to_i %></p>
                   </td>
                   <td class="align-middle border-0"><a class="reset-anchor" href="#"><i class="fas fa-trash-alt small text-muted"></i></a></td>
                 </tr>
@@ -111,9 +136,15 @@
           <div class="card-body">
             <h5 class="text-uppercase mb-4">Cart total</h5>
             <ul class="list-unstyled mb-0">
-              <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small"><%= @subtotal %></span></li>
+              <li class="d-flex align-items-center justify-content-between">
+                <strong class="text-uppercase small font-weight-bold">Subtotal</strong>
+                <span id="cart-subtotal" class="text-muted small"></span>
+              </li>
               <li class="border-bottom my-2"></li>
-              <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span><%= @cart.total %></span></li>
+              <li class="d-flex align-items-center justify-content-between mb-4">
+                <strong class="text-uppercase small font-weight-bold">Total</strong>
+                <span id="cart-total"></span>
+              </li>
               <li>
                 <form action="#">
                   <div class="form-group mb-0">
