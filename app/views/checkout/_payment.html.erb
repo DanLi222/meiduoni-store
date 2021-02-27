@@ -3,7 +3,7 @@ paypal.Button.render({
     // Configure environment
     env: 'sandbox',
     client: {
-      sandbox: '<%= Rails.application.config.paypal_client_id %>',
+      sandbox: '<%= env['PAYPAL_CLIENT_ID'] %>',
       production: ''
     },
     // Customize button (optional)

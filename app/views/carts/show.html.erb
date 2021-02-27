@@ -42,12 +42,21 @@
 
     $('#checkout').click(function () {
       console.log("checkout button clicked")
+      var checkout_line_items = []
+      line_items.forEach((item) => {
+        checkout_line_items.push(JSON.stringify({
+          id: item.id,
+          quantity: $('#quantity-' + item.id).val()
+        }))
+      })
+
       $.ajax({
         url: "/checkout",
         contentType: 'application/json',
         type: "POST",
         data: JSON.stringify({
-          checkout_action: "start_checkout"
+          checkout_action: "start_checkout",
+          line_items: checkout_line_items
         }),
         success: function () {
           window.location.href = "<%= checkout_path %>"
