@@ -2,7 +2,7 @@
 <script>
   $(document).ready(function () {
     $('#placeOrder').click(function () {
-      console.log("place order clicked");
+      if(document.getElementById('shipping_address_form').checkValidity()){
         $.ajax({
           url: "",
           contentType: 'application/json',
@@ -23,7 +23,8 @@
           success: function () {
             window.location.href = "<%= checkout_path %>"
           }
-      });
+        });
+      }
     })
 
     $('#backToCart').click(function() {
@@ -51,7 +52,6 @@
         }
       });
     })
-
 
     $('#editPayment').click( function() {
       console.log("edit payment clicked")

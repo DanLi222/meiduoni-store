@@ -2,6 +2,7 @@ class CheckoutController < ApplicationController
   def checkout
     @current_cart = Cart.current_cart(current_user)
     initial_state = @current_cart.state
+    @addresses = has_address ? @current_user.addresses : [Address.new]
 
     if params['checkout_action'] == 'start_checkout'
       unless params['line_items'].nil? 
@@ -54,23 +55,28 @@ class CheckoutController < ApplicationController
     @current_cart.update(subtotal: cart_subtotal, total: cart_subtotal * 1.13)
   end
 
-  def add_address
-    @address = Address.new(
-        firstName: params['firstName'],
-        lastName: params['lastName'],
-        email: params['email'],
-        phoneNumber: params['phoneNumber'],
-        postalCode: params['postalCode'],
-        country: params['country'],
-        streetAddress: params['streetAddress'],
-        apartment: params['apartment'],
-        city: params['city'],
-        province: params['province'],
-        user_id: current_user.id
-    )
-    if @address.save
-      Cart.current_cart(current_user).update(shipping_address_id: @address.id)
+  def has_address
+    !(@current_user && @current_user.addresses.empty?)
+  end
+
+  def existing_address
+    return_address = nil
+    exclude = %w(id created_at updated_at defaultAddress user_id)
+    result = @addresses.map do |address|
+      address_attributes = address.attributes.except(*exclude)
+      return_address = address if address_attributes == address_params
     end
+    return_address
+  end
+
+  def add_address
+    shipping_address = existing_address
+    if shipping_address.nil?
+      address_params['user_id'] = @current_user.id
+      shipping_address = Address.create(address_params) 
+    end
+
+    Cart.current_cart(current_user).update(shipping_address_id: shipping_address.id)
   end
 
   def add_payment
@@ -114,5 +120,11 @@ class CheckoutController < ApplicationController
     if result["state"] == "approved"
       @current_cart.payment.update(state: "completed")
     end
+  end
+
+  private
+
+  def address_params
+    params.permit('firstName', 'lastName', 'email', 'phoneNumber', 'postalCode', 'country', 'streetAddress', 'apartment', 'city', 'province')
   end
 end
