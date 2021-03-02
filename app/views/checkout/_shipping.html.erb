@@ -1,45 +1,128 @@
-<!-- BILLING ADDRESS-->
+<script>
+  $(document).ready(function () {
+    var addresses = JSON.parse($('#addresses').val())
+    var shipping_form = document.getElementById('shipping_address_form')
+    shipping_form.addEventListener('submit', validateform)
+
+    function validateform(e) {
+      e.preventDefault()
+      if(document.getElementById('shipping_address_form').checkValidity()){
+        console.log("going to controller")
+        $.ajax({
+          url: "",
+          contentType: 'application/json',
+          type: "POST",
+          data: JSON.stringify({
+            checkout_action: 'add_address',
+            firstName: $('#firstName').val(),
+            lastName: $('#lastName').val(),
+            email: $('#email').val(),
+            phoneNumber: $('#phoneNumber').val(),
+            postalCode: $('#postalCode').val(),
+            country: $('#country').val(),
+            streetAddress: $('#streetAddress').val(),
+            apartment: $('#apartment').val(),
+            city: $('#city').val(),
+            province: $('#province').val(),
+          }),
+          success: function () {
+            window.location.href = "<%= checkout_path %>"
+          }
+        });
+      }
+    }
+
+    $('.chooseAddress').click(function () {
+      var chosenAddress = findAddress(this.id)
+      setAddress(chosenAddress)
+    })
+
+    function findAddress(addressId){
+      var address = null
+      addresses.forEach( addr => {
+        if (addressId == addr.id) {
+          address = addr
+          return;
+        }   
+      })
+      return address
+    }
+
+    function setAddress(chosenAddress){
+      document.getElementById('firstName').value     = chosenAddress.firstName
+      document.getElementById('lastName').value      = chosenAddress.lastName
+      document.getElementById('email').value         = chosenAddress.email
+      document.getElementById('phoneNumber').value   = chosenAddress.phoneNumber
+      document.getElementById('postalCode').value    = chosenAddress.postalCode
+      document.getElementById('country').value       = chosenAddress.country
+      document.getElementById('streetAddress').value = chosenAddress.streetAddress
+      document.getElementById('apartment').value     = chosenAddress.apartment
+      document.getElementById('city').value          = chosenAddress.city
+      document.getElementById('province').value      = chosenAddress.province
+    }
+  })
+</script>
+
+<!-- SHIPPING ADDRESS-->
   <div class="col-lg-8">
+    <div id="existing_address" class="row">
+    <!-- EXISTING ADDRESSES-->
+      <input type="hidden" name="addresses" id="addresses" value='<%= @addresses.to_json %>'  />
+      <% unless @addresses.nil? || @addresses.empty? %>
+        <% @addresses.each do |address| %>
+          <div class="col-lg-4 col-sm-6">
+            <div id="<%= address.id %>" class="chooseAddress product text-center">
+              <p class="small text-muted"><%= address.firstName %> <%= address.lastName %>, <%= address.phoneNumber %></p>
+              <p class="small text-muted"><%= address.email %></p>
+              <p class="small text-muted"><%= address.streetAddress %>, <%= address.postalCode %></p>
+              <p class="small text-muted"><%= address.city %>, <%= address.province %></p>        
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <form id="shipping_address_form" action="">
     <div class="row">
       <div class="col-lg-6 form-group">
         <label class="text-small text-uppercase" for="firstName">First name</label>
-        <input class="form-control form-control-lg" id="firstName" type="text" placeholder="Enter your first name">
+        <input class="form-control form-control-lg" name="firstName" id="firstName" type="text" placeholder="Enter your first name" required>
       </div>
       <div class="col-lg-6 form-group">
         <label class="text-small text-uppercase" for="lastName">Last name</label>
-        <input class="form-control form-control-lg" id="lastName" type="text" placeholder="Enter your last name">
+        <input class="form-control form-control-lg" name="lastName" id="lastName" type="text" placeholder="Enter your last name" required>
       </div>
       <div class="col-lg-6 form-group">
         <label class="text-small text-uppercase" for="email">Email address</label>
-        <input class="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com">
+        <input class="form-control form-control-lg" name="email" id="email" type="email" placeholder="e.g. Jason@example.com" required>
       </div>
       <div class="col-lg-6 form-group">
         <label class="text-small text-uppercase" for="phone">Phone number</label>
-        <input class="form-control form-control-lg" id="phoneNumber" type="tel" placeholder="e.g. +02 245354745">
+        <input class="form-control form-control-lg" name="phoneNumber" id="phoneNumber" type="tel" placeholder="e.g. +02 245354745" required>
       </div>
       <div class="col-lg-6 form-group">
         <label class="text-small text-uppercase" for="postalCode">Postal code</label>
-        <input class="form-control form-control-lg" id="postalCode" type="text" placeholder="Your company name">
+        <input class="form-control form-control-lg" name="postalCode" id="postalCode" type="text" placeholder="Your company name" required>
       </div>
       <div class="col-lg-6 form-group">
         <label class="text-small text-uppercase" for="country">Country</label>
-        <input class="form-control form-control-lg" id="country" type="text" placeholder="Your country">
+        <input class="form-control form-control-lg" name="country" id="country" type="text" placeholder="Your country" required>
       </div>
       <div class="col-lg-12 form-group">
         <label class="text-small text-uppercase" for="streetAddress">Address line 1</label>
-        <input class="form-control form-control-lg" id="streetAddress" type="text" placeholder="House number and street name">
+        <input class="form-control form-control-lg" name="streetAddress" id="streetAddress" type="text" placeholder="House number and street name" required>
       </div>
       <div class="col-lg-12 form-group">
         <label class="text-small text-uppercase" for="apartment">Address line 2</label>
-        <input class="form-control form-control-lg" id="apartment" type="text" placeholder="Apartment, Suite, Unit, etc (optional)">
+        <input class="form-control form-control-lg" name="apartment" id="apartment" type="text" placeholder="Apartment, Suite, Unit, etc (optional)">
       </div>
       <div class="col-lg-6 form-group">
         <label class="text-small text-uppercase" for="city">Town/City</label>
-        <input class="form-control form-control-lg" id="city" type="text">
+        <input class="form-control form-control-lg" name="city" id="city" type="text" required>
       </div>
       <div class="col-lg-6 form-group">
         <label class="text-small text-uppercase" for="province">State/Province</label>
-        <input class="form-control form-control-lg" id="province" type="text">
+        <input class="form-control form-control-lg" name="province" id="province" type="text" required>
       </div>
       <div class="col-lg-6 form-group">
         <div class="custom-control custom-checkbox">
@@ -101,5 +184,6 @@
         <div class="col-md-6 text-md-right"><button id="placeOrder" class="btn btn-outline-dark btn-sm">Place Order<i class="fas fa-long-arrow-alt-right ml-2"></i></button></div>
       </div>
     </div>
+    </form>
   </div>
   

@@ -1,30 +1,8 @@
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
   $(document).ready(function () {
-    $('#placeOrder').click(function () {
-      console.log("place order clicked");
-        $.ajax({
-          url: "",
-          contentType: 'application/json',
-          type: "POST",
-          data: JSON.stringify({
-            checkout_action: 'add_address',
-            firstName: $('#firstName').val(),
-            lastName: $('#lastName').val(),
-            email: $('#email').val(),
-            phoneNumber: $('#phoneNumber').val(),
-            postalCode: $('#postalCode').val(),
-            country: $('#country').val(),
-            streetAddress: $('#streetAddress').val(),
-            apartment: $('#apartment').val(),
-            city: $('#city').val(),
-            province: $('#province').val(),
-          }),
-          success: function () {
-            window.location.href = "<%= checkout_path %>"
-          }
-      });
-    })
+
+
 
     $('#backToCart').click(function() {
       console.log("back to cart clicked")
@@ -51,7 +29,6 @@
         }
       });
     })
-
 
     $('#editPayment').click( function() {
       console.log("edit payment clicked")
