@@ -2,6 +2,38 @@
   $(document).ready(function () {
     var addresses = JSON.parse($('#addresses').val())
 
+    var shipping_form = document.getElementById('shipping_address_form')
+    console.log(shipping_form)
+    shipping_form.addEventListener('submit', validateform)
+
+    function validateform(e) {
+      e.preventDefault()
+      if(document.getElementById('shipping_address_form').checkValidity()){
+        console.log("going to controller")
+        $.ajax({
+          url: "",
+          contentType: 'application/json',
+          type: "POST",
+          data: JSON.stringify({
+            checkout_action: 'add_address',
+            firstName: $('#firstName').val(),
+            lastName: $('#lastName').val(),
+            email: $('#email').val(),
+            phoneNumber: $('#phoneNumber').val(),
+            postalCode: $('#postalCode').val(),
+            country: $('#country').val(),
+            streetAddress: $('#streetAddress').val(),
+            apartment: $('#apartment').val(),
+            city: $('#city').val(),
+            province: $('#province').val(),
+          }),
+          success: function () {
+            window.location.href = "<%= checkout_path %>"
+          }
+        });
+      }
+    }
+
     $('.chooseAddress').click(function () {
       var chosenAddress = findAddress(this.id)
       setAddress(chosenAddress)
@@ -35,18 +67,20 @@
 
 <!-- SHIPPING ADDRESS-->
   <div class="col-lg-8">
-    <div class="row">
+    <div id="existing_address" class="row">
     <!-- EXISTING ADDRESSES-->
       <input type="hidden" name="addresses" id="addresses" value='<%= @addresses.to_json %>'  />
-      <% @addresses.each do |address| %>
-        <div class="col-lg-4 col-sm-6">
-          <div id="<%= address.id %>" class="chooseAddress product text-center">
-            <p class="small text-muted"><%= address.firstName %> <%= address.lastName %>, <%= address.phoneNumber %></p>
-            <p class="small text-muted"><%= address.email %></p>
-            <p class="small text-muted"><%= address.streetAddress %>, <%= address.postalCode %></p>
-            <p class="small text-muted"><%= address.city %>, <%= address.province %></p>        
+      <% unless @addresses.nil? || @addresses.empty? %>
+        <% @addresses.each do |address| %>
+          <div class="col-lg-4 col-sm-6">
+            <div id="<%= address.id %>" class="chooseAddress product text-center">
+              <p class="small text-muted"><%= address.firstName %> <%= address.lastName %>, <%= address.phoneNumber %></p>
+              <p class="small text-muted"><%= address.email %></p>
+              <p class="small text-muted"><%= address.streetAddress %>, <%= address.postalCode %></p>
+              <p class="small text-muted"><%= address.city %>, <%= address.province %></p>        
+            </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
 
@@ -149,7 +183,7 @@
     <div class="bg-light px-4 py-3">
       <div class="row align-items-center text-center">
         <div class="col-md-6 mb-3 mb-md-0 text-md-left"><div id="backToCart" class="btn btn-link p-0 text-dark btn-sm"><i class="fas fa-long-arrow-alt-left mr-2"> </i>Back To Cart</div></div>
-        <div class="col-md-6 text-md-right"><button id="placeOrder" type="submit" class="btn btn-outline-dark btn-sm">Place Order<i class="fas fa-long-arrow-alt-right ml-2"></i></button></div>
+        <div class="col-md-6 text-md-right"><button id="placeOrder" class="btn btn-outline-dark btn-sm">Place Order<i class="fas fa-long-arrow-alt-right ml-2"></i></button></div>
       </div>
     </div>
     </form>

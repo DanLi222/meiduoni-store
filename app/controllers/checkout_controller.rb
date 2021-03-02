@@ -2,7 +2,7 @@ class CheckoutController < ApplicationController
   def checkout
     @current_cart = Cart.current_cart(current_user)
     initial_state = @current_cart.state
-    @addresses = has_address ? @current_user.addresses : [Address.new]
+    @addresses = @current_user.addresses if has_address?
 
     if params['checkout_action'] == 'start_checkout'
       unless params['line_items'].nil? 
@@ -55,16 +55,18 @@ class CheckoutController < ApplicationController
     @current_cart.update(subtotal: cart_subtotal, total: cart_subtotal * 1.13)
   end
 
-  def has_address
+  def has_address?
     !(@current_user && @current_user.addresses.empty?)
   end
 
   def existing_address
     return_address = nil
     exclude = %w(id created_at updated_at defaultAddress user_id)
-    result = @addresses.map do |address|
-      address_attributes = address.attributes.except(*exclude)
-      return_address = address if address_attributes == address_params
+    unless @addresses.nil? || @addresses.empty?
+      @addresses.map do |address|
+        address_attributes = address.attributes.except(*exclude)
+        return_address = address if address_attributes == address_params.except(:checkout_action)
+      end
     end
     return_address
   end
@@ -72,7 +74,7 @@ class CheckoutController < ApplicationController
   def add_address
     shipping_address = existing_address
     if shipping_address.nil?
-      address_params['user_id'] = @current_user.id
+      params['user_id'] = @current_user.id
       shipping_address = Address.create(address_params) 
     end
 
@@ -125,6 +127,7 @@ class CheckoutController < ApplicationController
   private
 
   def address_params
-    params.permit('firstName', 'lastName', 'email', 'phoneNumber', 'postalCode', 'country', 'streetAddress', 'apartment', 'city', 'province')
+    params.permit('user_id', 'firstName', 'lastName', 'email', 'phoneNumber', 'postalCode', 'country', 'streetAddress', 'apartment', 'city', 'province')
   end
+
 end
