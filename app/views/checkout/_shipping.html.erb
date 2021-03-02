@@ -1,9 +1,7 @@
 <script>
   $(document).ready(function () {
     var addresses = JSON.parse($('#addresses').val())
-
     var shipping_form = document.getElementById('shipping_address_form')
-    console.log(shipping_form)
     shipping_form.addEventListener('submit', validateform)
 
     function validateform(e) {
