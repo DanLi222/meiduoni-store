@@ -102,28 +102,28 @@
             </tr>
             </thead>
             <tbody>
-            <input type="hidden" name="line_items" id="line_items" value='<%= @line_items_array.to_json %>'  />
-              <% @line_items_array.each do |line_item| %>
+            <input type="hidden" name="line_items" id="line_items" value='<%= @line_items.to_json %>'  />
+              <% @line_items.each do |line_item| %>
                 <tr>
                   <th class="pl-0 border-0" scope="row">
-                    <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="<%= product_path(line_item[:sku]) %>"><img src="<%= line_item[:image] %>" alt="..." width="70"/></a>
-                      <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="<%= product_path(line_item[:sku]) %>"><%= line_item[:sku] %></a></strong></div>
+                    <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="<%= product_path(line_item.sku) %>"><img src="<%= line_item.image %>" alt="..." width="70"/></a>
+                      <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="<%= product_path(line_item.sku) %>"><%= line_item.sku %></a></strong></div>
                     </div>
                   </th>
                   <td class="align-middle border-0">
-                    <p id="price-<%= line_item[:id] %>" class="mb-0 small"><%= line_item[:price] %></p>
+                    <p id="price-<%= line_item.id %>" class="mb-0 small"><%= line_item.price %></p>
                   </td>
                   <td class="align-middle border-0">
-                    <div class="border d-flex align-items-center justify-content-between px-3"><span class="small text-uppercase text-gray headings-font-family">size: <%= line_item[:size] %></span>
+                    <div class="border d-flex align-items-center justify-content-between px-3"><span class="small text-uppercase text-gray headings-font-family">size: <%= line_item.size %></span>
                       <div class="quantity">
-                        <button id="cart-dec-btn" class="<%= line_item[:id] %> cart-dec-btn"><i class="fas fa-caret-left"></i></button>
-                        <input id="quantity-<%= line_item[:id] %>" class="line_item_quantity form-control form-control-sm border-0 shadow-0 p-0" type="text" value="<%= line_item[:quantity] %>"/>
-                        <button id="cart-inc-btn" class="<%= line_item[:id] %> cart-inc-btn"><i class="fas fa-caret-right"></i></button>
+                        <button id="cart-dec-btn" class="<%= line_item.id %> cart-dec-btn"><i class="fas fa-caret-left"></i></button>
+                        <input id="quantity-<%= line_item.id %>" class="line_item_quantity form-control form-control-sm border-0 shadow-0 p-0" type="text" value="<%= line_item.quantity %>"/>
+                        <button id="cart-inc-btn" class="<%= line_item.id %> cart-inc-btn"><i class="fas fa-caret-right"></i></button>
                       </div>
                     </div>
                   </td>
                   <td class="align-middle border-0">
-                    <p class="mb-0 small" id="single_item_total-<%= line_item[:id] %>"><%= line_item[:price].to_i %></p>
+                    <p class="mb-0 small" id="single_item_total-<%= line_item.id %>"><%= line_item.price.to_i %></p>
                   </td>
                   <td class="align-middle border-0"><a class="reset-anchor" href="#"><i class="fas fa-trash-alt small text-muted"></i></a></td>
                 </tr>
