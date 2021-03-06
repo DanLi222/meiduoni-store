@@ -95,14 +95,13 @@
           <p class="text-small mb-4">Description</p>
           <ul class="list-unstyled small d-inline-block">
             <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">Color:</strong>
-              <% products_array = @products.map { |product| [product.color, product.id]} %>
               <select id="productColorPicker" class="selectpicker">
-                <%= options_for_select(products_array, selected: @selected_product.id) %>
+                <%= options_for_select(@products, selected: @selected_product.id) %>
               </select>
             </li>
             <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">Size:</strong>
               <select id="inventoryPicker" class="selectpicker">
-                <%= options_for_select((@inventory_array), {disabled: @disabled_inventories.flatten}) %>
+                <%= options_for_select(@inventories, disabled: @backodered_inventory_ids) %>
               </select>
             </li>
             <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Material:</strong><a class="reset-anchor ml-2" href="#"><%= @selected_product.property.material %></a></li>

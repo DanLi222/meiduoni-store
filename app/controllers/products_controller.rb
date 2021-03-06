@@ -4,18 +4,12 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @products = Product.where(sku: params[:id])
-    @disabled_inventories = []
-    if params[:product_id].nil?
-      @selected_product = @products.first
-      @inventory_array = @selected_product.inventories.map { |inventory| [inventory.size, inventory.quantity, inventory.id]}
-      @disabled_inventories = disabled_inventories(@inventory_array)
-    else
-      @selected_product = Product.find(params[:product_id])
-      @inventory_array = @selected_product.inventories.map { |inventory| [inventory.size, inventory.quantity, inventory.id]}
-      @disabled_inventories = disabled_inventories(@inventory_array)
-      render partial: "product_detail"
-    end
+    @selected_product = selected_product
+    @products = products
+    @inventories = inventories
+    @backodered_inventory_ids = backodered_inventory_ids
+
+    render partial: "product_detail" unless params[:product_id].nil?
   end
   
   private
@@ -23,13 +17,19 @@ class ProductsController < ApplicationController
       params.require(:product).permit(:sku, :color, :image)
     end
 
-    def disabled_inventories(inventory_array)
-      disabled_inventories = []
-      inventory_array.each do |inventory|
-        if inventory[1] == 0
-          disabled_inventories << inventory
-        end
-      end
-      disabled_inventories
+    def products
+      Product.where(sku: @selected_product.sku).pluck :color, :id
+    end
+
+    def selected_product
+      params[:product_id].nil? ? Product.find(params[:id]) : Product.find(params[:product_id])
+    end
+
+    def inventories
+      @selected_product.inventories.pluck(:size, :quantity, :id)
+    end
+
+    def backodered_inventory_ids
+      @selected_product.inventories.backordered.pluck :id
     end
 end
