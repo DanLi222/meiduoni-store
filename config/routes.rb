@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :carts
   resources :addresses
 
-  get 'add_line_item' => 'line_items#add_line_item'
+  get 'add_to_cart' => 'line_items#add_to_cart'
   get 'checkout' => 'checkout#checkout'
   post 'checkout' => 'checkout#checkout'
   get 'update_billing_address' => 'checkout#update_billing_address'

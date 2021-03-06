@@ -10,13 +10,13 @@ class Product < ApplicationRecord
   DEFAULT_PRICE = 0
   DEFAULT_QUANTITY = 0
 
-  def self.sizes
+  def sizes
     35..40
   end
 
   private
   def create_properties
-    self.property = Property.create(
+    property = Property.create(
         gender: DEFAULT_GENDER,
         material: DEFAULT_MATERIAL,
         season: DEFAULT_SEASON,
