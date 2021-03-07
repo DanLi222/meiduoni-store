@@ -32,7 +32,6 @@ class Admins::ProductsController < ApplicationController
     }
     end
 
-
     if Products::ProductUpdater.new(product: @product, params: params).call
       redirect_to admins_products_path
     else
