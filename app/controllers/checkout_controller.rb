@@ -4,42 +4,35 @@ class CheckoutController < ApplicationController
     initial_state = @current_cart.state
     @addresses = @current_user.addresses if has_address?
 
-    if params['checkout_action'] == 'start_checkout'
-      unless params['line_items'].nil? 
-        isUpdated = update_line_items && update_cart_total
-        move_next = true if isUpdated
-      end
-    end
-
-    if params['checkout_action'] == 'add_address'
-      add_address
-      move_next = true
-    end
-
-    if params['checkout_action'] == 'add_payment'
-      add_payment
-      move_next = true
-    end
-
-    if params['checkout_action'] == 'confirm_payment'
-      confirm_payment
-      move_next = true
-    end
-
-    if params['prev'] == "true"
-      @current_cart.prev_state
-    end
-
-    if move_next == true
-      @current_cart.next_state
-    end
+    navigate
 
     @current_cart.reload
     @line_items = @current_cart.line_items
     @state = @current_cart.state
-    
+
     if @state == "init"
       redirect_to cart_path(@current_cart)
+    end
+  end
+
+  def navigate
+    case params['checkout_action']
+      when 'previous_page'
+        @current_cart.prev_state
+      when 'start_checkout'
+        unless params['line_items'].nil? 
+          isUpdated = update_line_items && update_cart_total
+          @current_cart.next_state if isUpdated
+        end
+      when 'add_address'
+        add_address
+        @current_cart.next_state
+      when 'add_payment'
+        add_payment
+        @current_cart.next_state
+      when 'confirm_payment'
+        confirm_payment
+        @current_cart.next_state
     end
   end
 

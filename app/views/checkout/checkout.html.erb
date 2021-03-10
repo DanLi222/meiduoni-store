@@ -7,7 +7,9 @@
         url: "",
         contentType: 'text/html',
         type: "GET",
-        data: {prev: true},
+        data: {
+          "checkout_action": "previous_page"
+        },
         success: function () {
           window.location.href = "<%= cart_path(@current_cart) %>"
         }
@@ -20,7 +22,9 @@
         url: "",
         contentType: 'text/html',
         type: "GET",
-        data: {prev: true},
+        data: {
+          "checkout_action": "previous_page"
+        },
         success: function () {
           window.location.href = "<%= checkout_path %>"
         }
@@ -33,7 +37,9 @@
         url: "",
         contentType: 'text/html',
         type: "GET",
-        data: {prev: true},
+        data: {
+          "checkout_action": "previous_page"
+        },
         success: function () {
           window.location.href = "<%= checkout_path %>"
         }
