@@ -29,25 +29,36 @@ class CheckoutController < ApplicationController
     if params['prev'] == "true"
       @current_cart.prev_state
     end
+
     if move_next == true
       @current_cart.next_state
     end
+
     @current_cart.reload
     @line_items = @current_cart.line_items
     @state = @current_cart.state
+    
     if @state == "init"
       redirect_to cart_path(@current_cart)
     end
   end
 
   def update_line_items
-    cart_line_items = params['line_items']
-    result = cart_line_items.map do |item|
-      params_line_item = JSON.parse(item)
-      line_item = @current_cart.line_items.filter { |li| li.id == params_line_item["id"] }.first
-      line_item.update(quantity: params_line_item["quantity"])
+    begin
+      cart_line_items = params['line_items'].map { |item| JSON.parse(item) }
+    rescue => error
+      Rails.logger.error error.message
+      return
     end
-    !result.include?(false) 
+
+
+    ActiveRecord::Base.transaction do
+      cart_line_items.map do |item|
+        line_item = LineItem.find(item['id'])
+        raise 'Line Item does not belong here!!!!!' unless line_item.cart == @current_cart 
+        line_item.update!(quantity: item['quantity'])
+      end
+    end
   end
 
   def update_cart_total
