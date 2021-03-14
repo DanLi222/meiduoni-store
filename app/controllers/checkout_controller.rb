@@ -15,68 +15,71 @@ class CheckoutController < ApplicationController
     end
   end
 
+  private 
+
+  attr_accessor :current_cart
+
   def navigate
     case params['checkout_action']
-      when 'previous_page'
-        @current_cart.prev_state
+      when 'go_back'
+        current_cart.prev_state
       when 'start_checkout'
         unless params['line_items'].nil? 
           isUpdated = update_line_items && update_cart_total
-          @current_cart.next_state if isUpdated
+          current_cart.next_state if isUpdated
         end
       when 'add_address'
         add_address
-        @current_cart.next_state
+        current_cart.next_state
       when 'add_payment'
         add_payment
-        @current_cart.next_state
+        current_cart.next_state
       when 'confirm_payment'
         confirm_payment
-        @current_cart.next_state
+        current_cart.next_state
     end
   end
 
   def update_line_items
     begin
-      cart_line_items = params['line_items'].map { |item| JSON.parse(item) }
+      cart_line_items = params['line_items']
     rescue => error
       Rails.logger.error error.message
       return
     end
-
-
+    
     ActiveRecord::Base.transaction do
       cart_line_items.map do |item|
         line_item = LineItem.find(item['id'])
-        raise 'Line Item does not belong here!!!!!' unless line_item.cart == @current_cart 
+        raise 'Line Item does not belong here!!!!!' unless line_item.cart == current_cart 
         line_item.update!(quantity: item['quantity'])
       end
     end
   end
 
   def update_cart_total
-    cart_subtotal = @current_cart.line_items.map { |item| item.price * item.quantity }.sum
-    @current_cart.update(subtotal: cart_subtotal, total: cart_subtotal * 1.13)
+    cart_subtotal = current_cart.line_items.map { |item| item.price * item.quantity }.sum
+    current_cart.update(subtotal: cart_subtotal, total: cart_subtotal * 1.13)
   end
 
   def has_address?
-    !(@current_user && @current_user.addresses.empty?)
+    !(current_user && current_user.addresses.empty?)
   end
 
   def add_address
     shipping_address = Addresses::AddressUpdater.new(user: current_user, params: address_params).call
-    Cart.current_cart(@current_user).update(shipping_address_id: shipping_address.id)
+    current_cart.update(shipping_address_id: shipping_address.id)
   end
 
   def add_payment
     if params['provider'] == "paypal"
       payment = Payment.create(provider: 'paypal', payer_id: params['payer_id'], payment_id: params['payment_id'], token: params['token'], state: "pending")
       
-      unless @current_cart.payment.nil? 
-        @current_cart.payment.update(state: "cancelled")
+      unless current_cart.payment.nil? 
+        current_cart.payment.update(state: "cancelled")
       end
 
-      @current_cart.update(billing_address_id: @current_cart.shipping_address_id, payment_id: payment.id)
+      current_cart.update(billing_address_id: current_cart.shipping_address_id, payment_id: payment.id)
     end
   end
 
@@ -84,7 +87,7 @@ class CheckoutController < ApplicationController
     token = Paypal::PaypalAuthenticator.new.call
     return if token.nil?
     
-    payment = @current_cart.payment
+    payment = current_cart.payment
     headers = {
       Authorization: "Bearer #{token.access_token}",
       "Content-Type": "application/json"
@@ -95,7 +98,7 @@ class CheckoutController < ApplicationController
         {
           amount:
           {
-            total: @current_cart.total,
+            total: current_cart.total,
             currency: 'CAD'
           }
         }]

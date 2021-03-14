@@ -10,5 +10,6 @@ FactoryBot.define do
     country { 'Canada' }
     phone_number { '123123123' }
     email { 'test@test.com' }
+    default_address { false }
   end
 end

@@ -44,10 +44,10 @@
       console.log("checkout button clicked")
       var checkout_line_items = []
       line_items.forEach((item) => {
-        checkout_line_items.push(JSON.stringify({
+        checkout_line_items.push({
           id: item.id,
           quantity: $('#quantity-' + item.id).val()
-        }))
+        })
       })
 
       $.ajax({
