@@ -73,10 +73,12 @@ class CheckoutController < ApplicationController
 
   def add_payment
     if params['provider'] == "paypal"
-      payment = Payment.create(provider: 'paypal', payer_id: params['payer_id'], payment_id: params['payment_id'], token: params['token'], state: "pending")
+      payment = Payment.create(provider: 'paypal', payer_id: params['payer_id'], payment_id: params['payment_id'], token: params['token'], state: "pending", cart: current_cart)
       
-      unless current_cart.payment.nil? 
-        current_cart.payment.update(state: "cancelled")
+      current_cart.reload
+      # To be modified
+      unless current_cart.payments.first.nil? 
+        current_cart.payments.first.update(state: "cancelled")
       end
 
       current_cart.update(billing_address_id: current_cart.shipping_address_id, payment_id: payment.id)
@@ -86,14 +88,14 @@ class CheckoutController < ApplicationController
   def confirm_payment
     token = Paypal::PaypalAuthenticator.new.call
     return if token.nil?
-    
-    payment = current_cart.payment
+
+    payment = current_cart.payments
     headers = {
       Authorization: "Bearer #{token.access_token}",
       "Content-Type": "application/json"
     }
     body = {
-        payer_id: payment.payer_id,
+        payer_id: payment.first.payer_id,
         transactions: [
         {
           amount:
@@ -104,13 +106,13 @@ class CheckoutController < ApplicationController
         }]
     }
     result = HTTParty.post(
-        "https://api-m.sandbox.paypal.com/v1/payments/payment/#{payment.payment_id}/execute",
+        "https://api-m.sandbox.paypal.com/v1/payments/payment/#{payment.first.payment_id}/execute",
         headers: headers,
         body: body.to_json
     )
 
     if result["state"] == "approved"
-      @current_cart.payment.update(state: "completed")
+      current_cart.payment.first.update(state: "completed")
     end
   end
 

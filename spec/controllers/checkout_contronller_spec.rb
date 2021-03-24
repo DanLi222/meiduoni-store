@@ -102,4 +102,65 @@ RSpec.describe CheckoutController, type: :controller do
       end
     end
   end
+
+  describe '#confirm_payment' do
+    context 'when token is nil' do
+      it 'does not make a post to paypal api' do
+        user = create(:user)
+        allow(controller).to receive(:current_user).and_return(user)
+        cart = create(:cart_with_line_item, state: 'shipping', user: user)
+        allow(controller).to receive(:current_cart).and_return(cart)
+
+        allow_any_instance_of(Paypal::PaypalAuthenticator).to receive(:call).and_return(nil)
+        expect(HTTParty).to_not receive(:post)
+        controller.send :confirm_payment
+      end
+    end
+    context 'when token is not nil' do
+      it 'makes a post to paypal api' do
+        user = create(:user)
+        allow(controller).to receive(:current_user).and_return(user)
+        cart = create(:cart_with_line_item_and_payment, state: 'shipping', user: user)
+        allow(controller).to receive(:current_cart).and_return(cart)
+
+        token = create(:valid_paypal_token)
+        result = { "state" => "approved" }
+        allow(Paypal::PaypalAuthenticator).to receive_message_chain(:new, :call).and_return(token)
+        expect(HTTParty).to receive(:post).and_return(result)
+
+        controller.send :confirm_payment
+      end
+      it 'updates payment state is completed' do
+        user = create(:user)
+        allow(controller).to receive(:current_user).and_return(user)
+        cart = create(:cart_with_line_item_and_payment, state: 'shipping', user: user)
+        allow(controller).to receive(:current_cart).and_return(cart)
+
+        token = create(:valid_paypal_token)
+        result = { "state" => "approved" }
+        allow(Paypal::PaypalAuthenticator).to receive_message_chain(:new, :call).and_return(token)
+        expect(HTTParty).to receive(:post).and_return(result)
+
+        controller.send :confirm_payment
+        expect(cart.payment.first.state).to eql("completed")
+      end
+    end
+  end
+
+  describe '#add_payment' do
+    context 'when provide is paypal' do
+      it 'creates a payment object' do
+        params = { "provider": "paypal" }
+        controller.params = params
+
+        user = create(:user)
+        allow(controller).to receive(:current_user).and_return(user)
+        cart = create(:cart_with_line_item, state: 'shipping', user: user)
+        allow(controller).to receive(:current_cart).and_return(cart)
+
+        
+        expect { controller.send :add_payment }.to change { cart.payments.count }.by(1)
+      end
+    end
+  end
 end
