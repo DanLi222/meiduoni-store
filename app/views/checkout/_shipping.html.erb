@@ -14,16 +14,17 @@
           type: "POST",
           data: JSON.stringify({
             checkout_action: 'add_address',
-            firstName: $('#firstName').val(),
-            lastName: $('#lastName').val(),
+            first_name: $('#firstName').val(),
+            last_name: $('#lastName').val(),
             email: $('#email').val(),
-            phoneNumber: $('#phoneNumber').val(),
-            postalCode: $('#postalCode').val(),
+            phone_number: $('#phoneNumber').val(),
+            postal_code: $('#postalCode').val(),
             country: $('#country').val(),
-            streetAddress: $('#streetAddress').val(),
+            street_address: $('#streetAddress').val(),
             apartment: $('#apartment').val(),
             city: $('#city').val(),
             province: $('#province').val(),
+            default_address: false
           }),
           success: function () {
             window.location.href = "<%= checkout_path %>"
@@ -49,13 +50,13 @@
     }
 
     function setAddress(chosenAddress){
-      document.getElementById('firstName').value     = chosenAddress.firstName
-      document.getElementById('lastName').value      = chosenAddress.lastName
+      document.getElementById('firstName').value     = chosenAddress.first_name
+      document.getElementById('lastName').value      = chosenAddress.last_name
       document.getElementById('email').value         = chosenAddress.email
-      document.getElementById('phoneNumber').value   = chosenAddress.phoneNumber
-      document.getElementById('postalCode').value    = chosenAddress.postalCode
+      document.getElementById('phoneNumber').value   = chosenAddress.phone_number
+      document.getElementById('postalCode').value    = chosenAddress.postal_code
       document.getElementById('country').value       = chosenAddress.country
-      document.getElementById('streetAddress').value = chosenAddress.streetAddress
+      document.getElementById('streetAddress').value = chosenAddress.street_address
       document.getElementById('apartment').value     = chosenAddress.apartment
       document.getElementById('city').value          = chosenAddress.city
       document.getElementById('province').value      = chosenAddress.province
@@ -72,9 +73,9 @@
         <% @addresses.each do |address| %>
           <div class="col-lg-4 col-sm-6">
             <div id="<%= address.id %>" class="chooseAddress product text-center">
-              <p class="small text-muted"><%= address.firstName %> <%= address.lastName %>, <%= address.phoneNumber %></p>
+              <p class="small text-muted"><%= address.first_name %> <%= address.last_name %>, <%= address.phone_number %></p>
               <p class="small text-muted"><%= address.email %></p>
-              <p class="small text-muted"><%= address.streetAddress %>, <%= address.postalCode %></p>
+              <p class="small text-muted"><%= address.street_address %>, <%= address.postal_code %></p>
               <p class="small text-muted"><%= address.city %>, <%= address.province %></p>        
             </div>
           </div>

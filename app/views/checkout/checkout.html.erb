@@ -1,16 +1,15 @@
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
   $(document).ready(function () {
-
-
-
     $('#backToCart').click(function() {
       console.log("back to cart clicked")
       $.ajax({
         url: "",
         contentType: 'text/html',
         type: "GET",
-        data: {prev: true},
+        data: {
+          "checkout_action": "go_back"
+        },
         success: function () {
           window.location.href = "<%= cart_path(@current_cart) %>"
         }
@@ -23,7 +22,9 @@
         url: "",
         contentType: 'text/html',
         type: "GET",
-        data: {prev: true},
+        data: {
+          "checkout_action": "go_back"
+        },
         success: function () {
           window.location.href = "<%= checkout_path %>"
         }
@@ -36,7 +37,9 @@
         url: "",
         contentType: 'text/html',
         type: "GET",
-        data: {prev: true},
+        data: {
+          "checkout_action": "go_back"
+        },
         success: function () {
           window.location.href = "<%= checkout_path %>"
         }

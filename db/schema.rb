@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_27_222737) do
+ActiveRecord::Schema.define(version: 2021_03_20_005018) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -35,18 +35,18 @@ ActiveRecord::Schema.define(version: 2021_02_27_222737) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.string "firstName"
-    t.string "lastName"
-    t.string "streetAddress"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "street_address"
     t.string "apartment"
     t.string "city"
     t.string "province"
-    t.string "postalCode"
+    t.string "postal_code"
     t.string "country"
-    t.string "phoneNumber"
+    t.string "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "defaultAddress", default: false
+    t.boolean "default_address", default: false
     t.string "email"
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
@@ -91,6 +91,8 @@ ActiveRecord::Schema.define(version: 2021_02_27_222737) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "state"
+    t.integer "cart_id"
+    t.index ["cart_id"], name: "index_payments_on_cart_id"
   end
 
   create_table "paypal_tokens", force: :cascade do |t|
@@ -138,5 +140,6 @@ ActiveRecord::Schema.define(version: 2021_02_27_222737) do
   add_foreign_key "inventories", "products"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "inventories"
+  add_foreign_key "payments", "carts"
   add_foreign_key "properties", "products"
 end
