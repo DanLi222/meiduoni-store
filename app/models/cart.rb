@@ -24,7 +24,7 @@ class Cart < ApplicationRecord
         self.update(state: "review")
       end
     when "review"
-      if self.payment.state == "completed"
+      if self.payments.first.state == "completed"
         self.update(state: "summary")
       end
     end 
