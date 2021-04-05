@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
     @products = products
     @inventories = inventories
     @backodered_inventory_ids = backodered_inventory_ids
+    @cart_id = current_user.nil? ? nil : current_user.cart_ids.last
 
     render partial: "product_detail" unless params[:product_id].nil?
   end

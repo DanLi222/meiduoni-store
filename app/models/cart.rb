@@ -2,10 +2,10 @@ class Cart < ApplicationRecord
   belongs_to :user
   has_many :payments
   has_many :line_items
-  scope :user_carts, -> (user) { where(user_id: user.id) }
+  scope :user_carts, -> (user) { where(user: user) }
 
   def self.current_cart(user)
-    user_carts(user).last
+    user.nil? ? Cart.new : user_carts(user).last
   end
 
   def next_state
