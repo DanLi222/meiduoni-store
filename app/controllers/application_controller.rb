@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate
 
   def authenticate
-    if @current_user.nil? && cookies["guest_uuid"].nil?
+    if current_user.nil? && cookies["guest_uuid"].nil?
       @current_user = User.new_guest
       cookies["guest_uuid"] = GuestIdentification.find_by(guest: @current_user).uuid
     elsif !cookies["guest_uuid"].nil?

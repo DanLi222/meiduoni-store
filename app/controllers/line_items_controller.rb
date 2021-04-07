@@ -1,6 +1,6 @@
 class LineItemsController < ApplicationController
   def add_to_cart
-    @line_items = Cart.current_cart(@current_user).line_items
+    @line_items = Cart.current_cart(current_user).line_items
     inventory_id = params['inventory_id'].to_i
 
     line_item = @line_items.filter { |line_item| line_item.inventory_id == inventory_id }.first

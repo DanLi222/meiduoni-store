@@ -1,8 +1,9 @@
 class CheckoutController < ApplicationController
   def checkout
+    binding.pry
     @current_cart = Cart.current_cart(current_user)
     initial_state = @current_cart.state
-    @addresses = @current_user.addresses if has_address?
+    @addresses = current_user.addresses if has_address?
 
     navigate
 
