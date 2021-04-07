@@ -10,8 +10,12 @@ class User < ApplicationRecord
 
   def self.new_guest
     guest = create(email: "guest" + "#{guest_number}" + "@guest.com", password: SecureRandom.uuid, guest: true)
-    create_guest_identification(guest)
-    guest
+    if guest.errors.empty?
+      create_guest_identification(guest)
+      guest
+    elsif guest.errors[:email] == ["has already been taken"] 
+      new_guest
+    end
   end
 
   private
@@ -24,6 +28,6 @@ class User < ApplicationRecord
   end
 
   def self.guest_number
-    where(guest: true).count + 1
+    rand(1e9)
   end
 end

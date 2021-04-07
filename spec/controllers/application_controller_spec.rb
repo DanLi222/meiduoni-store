@@ -31,6 +31,7 @@ RSpec.describe ApplicationController, type: :controller do
         @request.cookies["guest_uuid"] = guest_identification.uuid
 
         user = controller.authenticate
+
         expect(user).to eql(guest_identification.guest)
       end
     end
@@ -46,10 +47,11 @@ RSpec.describe ApplicationController, type: :controller do
 
         expect { controller.authenticate }.to change { GuestIdentification.count }.by(1)
       end
-      it 'set cookies["guest_uuid"]' do
+      it 'returns uuid' do
         allow(controller).to receive(:current_user).and_return(nil)
         
         uuid = controller.authenticate
+        
         uuid.should_not be_nil
       end
     end

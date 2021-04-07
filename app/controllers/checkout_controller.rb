@@ -64,7 +64,7 @@ class CheckoutController < ApplicationController
   end
 
   def has_address?
-    !(current_user && current_user.addresses.empty?)
+    current_user && current_user.addresses.any?
   end
 
   def add_address

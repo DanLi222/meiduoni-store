@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Cart, type: :model do
   describe '#self.current_cart' do
     context 'when user is nil' do
-      it 'creates a new cart without saving to database' do
+      it 'creates a new cart without persisting' do
         expect { Cart.current_cart(nil) }.to change { Cart.count }.by(0)
       end
       it 'returns a cart object' do

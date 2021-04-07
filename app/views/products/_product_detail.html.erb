@@ -35,7 +35,6 @@
       });
 
       $('#addToCart').click(function () {
-        console.log("clicked")
         var cartId = <%= @cart_id %>
         $.ajax({
           url: "/add_to_cart",

@@ -39,13 +39,15 @@ RSpec.describe User, type: :model do
       guest_identification = User.create_guest_identification(guest)
 
       expect(guest_identification.guest).to equal(guest)
-
     end
   end
 
   describe '#self.guest_number' do
-    it 'returns the number of guests plus 1' do
-      expect(User.guest_number).to eql(User.where(guest: true).count + 1) 
+    it 'calls rand' do
+      number = 12345
+      expect(User).to receive(:rand).and_return(number)
+
+      expect(User.guest_number).to eql(number)
     end
   end
 end
