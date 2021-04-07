@@ -24,6 +24,6 @@ class User < ApplicationRecord
   end
 
   def self.guest_number
-    where(:guest => true).count + 1
+    where(guest: true).count + 1
   end
 end
