@@ -45,7 +45,7 @@ RSpec.describe User, type: :model do
   describe '#self.guest_number' do
     it 'calls rand' do
       number = 12345
-      expect(User).to receive(:rand).and_return(number)
+      allow(User).to receive(:rand).and_return(number)
 
       expect(User.guest_number).to eql(number)
     end
