@@ -4,7 +4,6 @@ RSpec.describe Product, type: :model do
   describe '#create_properties' do
     context 'when a product is created' do
       it 'creates a property object' do
-        # product = Product.create!
         expect { Product.create! }.to change { Property.count }.by(1)
       end
     end

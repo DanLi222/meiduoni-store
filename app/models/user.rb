@@ -8,8 +8,26 @@ class User < ApplicationRecord
 
   after_create :create_carts
 
+  def self.new_guest
+    guest = create(email: "guest" + "#{guest_number}" + "@guest.com", password: SecureRandom.uuid, guest: true)
+    if guest.errors.empty?
+      create_guest_identification(guest)
+      guest
+    elsif guest.errors[:email] == ["has already been taken"] 
+      new_guest
+    end
+  end
+
   private
   def create_carts
     self.carts << Cart.create()
+  end
+
+  def self.create_guest_identification(guest)
+    GuestIdentification.create(guest: guest)
+  end
+
+  def self.guest_number
+    rand(1e9)
   end
 end

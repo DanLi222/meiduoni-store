@@ -35,7 +35,7 @@
       });
 
       $('#addToCart').click(function () {
-        console.log("clicked")
+        var cartId = <%= @cart_id %>
         $.ajax({
           url: "/add_to_cart",
           contentType: 'text/html',
@@ -43,7 +43,7 @@
           data: {
             inventory_id: $('#inventoryPicker').val(),
             quantity: $('#quantity').val(),
-            cart_id: <%= current_user.cart_ids.last %>
+            cart_id: cartId
           },
         });
       })

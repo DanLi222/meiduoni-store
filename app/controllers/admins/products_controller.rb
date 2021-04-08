@@ -32,11 +32,8 @@ class Admins::ProductsController < ApplicationController
     }
     end
 
-    if Products::ProductUpdater.new(product: @product, params: params).call
-      redirect_to admins_products_path
-    else
-      render 'edit'
-    end
+    updated = Products::ProductUpdater.new(product: @product, params: params).call
+    updated ? redirect_to admins_products_path : render 'edit'
   end
 
   def destroy

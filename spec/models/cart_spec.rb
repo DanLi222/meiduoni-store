@@ -1,6 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe Cart, type: :model do
+  describe '#self.current_cart' do
+    context 'when user is nil' do
+      it 'creates a new cart without persisting' do
+        expect { Cart.current_cart(nil) }.to change { Cart.count }.by(0)
+      end
+      it 'returns a cart object' do
+        cart = Cart.current_cart(nil)
+        expect(cart.class).to eq(Cart)
+      end
+    end
+
+    context 'when user is not nil' do
+      it 'returns the last cart of the user' do
+        user = create(:user)
+
+        cart = Cart.current_cart(user)
+
+        expect(cart).to eql(user.carts.last)
+      end
+    end
+  end
+
   describe '#next_state' do
     context 'when cart state is init' do
       context 'when cart has no line items' do

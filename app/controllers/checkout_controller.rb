@@ -2,7 +2,7 @@ class CheckoutController < ApplicationController
   def checkout
     @current_cart = Cart.current_cart(current_user)
     initial_state = @current_cart.state
-    @addresses = @current_user.addresses if has_address?
+    @addresses = current_user.addresses if has_address?
 
     navigate
 
@@ -63,7 +63,7 @@ class CheckoutController < ApplicationController
   end
 
   def has_address?
-    !(current_user && current_user.addresses.empty?)
+    current_user && current_user.addresses.any?
   end
 
   def add_address
