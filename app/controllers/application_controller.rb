@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate
- 
+
   def set_locale
     I18n.locale = params[:locale].to_sym
   end
