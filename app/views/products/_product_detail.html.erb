@@ -92,24 +92,24 @@
           </ul>
           <h1><%= @selected_product.sku %></h1>
           <p class="text-muted lead"><%= @selected_product.property.price %></p>
-          <p class="text-small mb-4">Description</p>
+          <p class="text-small mb-4"><%= t('.description') %></p>
           <ul class="list-unstyled small d-inline-block">
-            <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">Color:</strong>
+            <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase"><%= t('.color') %></strong>
               <select id="productColorPicker" class="selectpicker">
                 <%= options_for_select(@products, selected: @selected_product.id) %>
               </select>
             </li>
-            <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">Size:</strong>
+            <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase"><%= t('.size') %></strong>
               <select id="inventoryPicker" class="selectpicker">
                 <%= options_for_select(@inventories, disabled: @backodered_inventory_ids) %>
               </select>
             </li>
-            <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Material:</strong><a class="reset-anchor ml-2" href="#"><%= @selected_product.property.material %></a></li>
-            <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Season:</strong><a class="reset-anchor ml-2" href="#"><%= @selected_product.property.season %></a></li>
+            <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark"><%= t('.material') %></strong><a class="reset-anchor ml-2" href="#"><%= @selected_product.property.material %></a></li>
+            <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark"><%= t('.season') %></strong><a class="reset-anchor ml-2" href="#"><%= @selected_product.property.season %></a></li>
           </ul>
           <div class="row align-items-stretch mb-4">
             <div class="col-sm-5 pr-sm-0">
-              <div class="border d-flex align-items-center justify-content-between py-1 px-3 bg-white border-white"><span class="small text-uppercase text-gray mr-4 no-select">Quantity</span>
+              <div class="border d-flex align-items-center justify-content-between py-1 px-3 bg-white border-white"><span class="small text-uppercase text-gray mr-4 no-select"><%= t('.quantity') %></span>
                 <div class="quantity">
                   <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
                   <input id="quantity" class="form-control border-0 shadow-0 p-0" type="text" value="1">
@@ -117,19 +117,19 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-3 pl-sm-0"><button id="addToCart" class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0">Add to cart</button></div>
-          </div><a class="btn btn-link text-dark p-0 mb-4" href="#"><i class="far fa-heart mr-2"></i>Add to wish list</a><br>
+            <div class="col-sm-3 pl-sm-0"><button id="addToCart" class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0"><%= t('.add_to_cart') %></button></div>
+          </div><a class="btn btn-link text-dark p-0 mb-4" href="#"><i class="far fa-heart mr-2"></i><%= t('.add_to_wishlist') %></a><br>
         </div>
       </div>
       <!-- DETAILS TABS-->
       <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
-        <li class="nav-item"><a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a></li>
-        <li class="nav-item"><a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a></li>
+        <li class="nav-item"><a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true"><%= t('.description') %></a></li>
+        <li class="nav-item"><a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false"><%= t('.reviews') %></a></li>
       </ul>
       <div class="tab-content mb-5" id="myTabContent">
         <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
           <div class="p-4 p-lg-5 bg-white">
-            <h6 class="text-uppercase">Product description </h6>
+            <h6 class="text-uppercase"><%= t('.product_description') %></h6>
             <p class="text-muted text-small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           </div>
         </div>
@@ -171,7 +171,7 @@
         </div>
       </div>
       <!-- RELATED PRODUCTS-->
-      <h2 class="h5 text-uppercase mb-4">Related products</h2>
+      <h2 class="h5 text-uppercase mb-4"><%= t('.related_products') %></h2>
       <div class="row">
         <!-- PRODUCT-->
         <div class="col-lg-3 col-sm-6">

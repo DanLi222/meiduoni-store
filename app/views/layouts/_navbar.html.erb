@@ -32,24 +32,26 @@
     <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="index.html"><span class="font-weight-bold text-uppercase text-dark">Meiduoni</span></a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- ADMIN USER -->
         <ul class="navbar-nav mr-auto">
           <% if current_user.present? && current_user.admin? %>
             <li class="nav-item">
-              <a class="nav-link" href="<%= new_admins_product_path %>">New Product</a>
+              <a class="nav-link" href="<%= new_admins_product_path %>"><%= t('.new_product') %></a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View</a>
+              <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= t('.view') %></a>
               <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
-                <a class="dropdown-item border-0 transition-link" href="<%= products_path %>">Custom View</a>
-                <a class="dropdown-item border-0 transition-link" href="<%= admins_products_path %>">Admin View</a>
+                <a class="dropdown-item border-0 transition-link" href="<%= products_path %>"><%= t('.customer_view') %></a>
+                <a class="dropdown-item border-0 transition-link" href="<%= admins_products_path %>"><%= t('.admin_view') %></a>
               </div>
             </li>
           <% end %>
         </ul>
+        <!-- RIGHT SIDE -->
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="<%= cart_path(Cart.current_cart(current_user)) %>">
-              <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Cart<small class="text-gray">(<%= Cart.current_cart(current_user).line_items.count %>)</small>
+              <i class="fas fa-dolly-flatbed mr-1 text-gray"></i><%= t('.cart') %><small class="text-gray">(<%= Cart.current_cart(current_user).line_items.count %>)</small>
             </a>
           </li>
           <li class="nav-item">
@@ -61,20 +63,20 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.name %></a>
               <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
-                <a class="dropdown-item border-0 transition-link" href="<%= edit_user_registration_path %>">Profile</a>
-                <a class="dropdown-item border-0 transition-link" href="<%= destroy_user_session_path %>" data-method="delete">Logout</a>
+                <a class="dropdown-item border-0 transition-link" href="<%= edit_user_registration_path %>"><%= t('.profile') %></a>
+                <a class="dropdown-item border-0 transition-link" href="<%= destroy_user_session_path %>" data-method="delete"><%= t('.logout') %></a>
               </div>
             </li>
           <% else %>
             <li class="nav-item">
-              <a class="nav-link" href="<%= new_user_session_path %>"><i class="fas fa-user-alt mr-1 text-gray"></i>Login</a>
+              <a class="nav-link" href="<%= new_user_session_path %>"><i class="fas fa-user-alt mr-1 text-gray"></i><%= t('.login') %></a>
             </li>
           <% end %>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="localeDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Language</a>
+            <a class="nav-link dropdown-toggle" id="localeDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= t('.language') %></a>
             <div class="dropdown-menu mt-3" aria-labelledby="localeDropdown">
-              <button id="locale-en" class="dropdown-item border-0 transition-link">English</button>
-              <button id="locale-zh" class="dropdown-item border-0 transition-link">Zhongwen</button>
+              <button id="locale-en" class="dropdown-item border-0 transition-link"><%= t('.english') %></button>
+              <button id="locale-zh" class="dropdown-item border-0 transition-link"><%= t('.chinese') %></button>
             </div>
           </li>
         </ul>
