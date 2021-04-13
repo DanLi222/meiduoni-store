@@ -20,5 +20,6 @@ Rails.application.routes.draw do
   get 'checkout' => 'checkout#checkout'
   post 'checkout' => 'checkout#checkout'
   get 'update_billing_address' => 'checkout#update_billing_address'
+  post 'set_locale' => 'application#set_locale'
 
 end

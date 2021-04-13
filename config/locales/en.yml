@@ -30,4 +30,96 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  products:
+    index: 
+      # title section
+      shop: Shop
+      home: Home
+      # shop sidebar
+      categories: Categories
+      # fashion
+      fashion: Fashion &amp; Acc
+      women_T-shirts: Women's T-Shirts
+      men_T-shirts: Men's T-Shirts
+      dresses: Dresses
+      socks: Novelty socks
+      women_sunglasses: Women's sunglasses
+      men_sunglasses: Men's sunglasses
+      # health
+      health: Health &amp; Beauty
+      shavers: Shavers
+      bags: bags
+      cometic: Cosmetic
+      nail: Nail Art
+      skin_mask: Skin Masks &amp; Peels
+      korean_cosmetics: Korean cosmetics
+      # electronics
+      electronics: Electronics
+      usb: USB Flash drives
+      headphones: Headphones
+      speakers: Portable speakers
+      phone_headsets: Cell Phone bluetooth headsets
+      keyboards: Keyboards
+      # shop listing
+      # TODO
+      show_result: Showing 1–12 of 53 results
+      default_sorting: Default sorting
+      popularity: Popularity
+      price_low_high: "Price: Low to High"
+      price_high_low: "Price: High to Low"
+    product_detail:
+      # product details
+      description: Description
+      color: "Color:"
+      size: "Size:"
+      material: "Material:"
+      season: "Season:"
+      quantity: Quantity
+      add_to_cart: Add to cart
+      add_to_wishlist: Add to wish list
+      reviews: Reviews
+      # details tab
+      product_description: Product description
+      # related products
+      related_products: Related products
+
+  layouts:
+    footer: 
+      # customer services
+      customer_services: Customer Services
+      contact_us: Help &amp; Contact Us
+      returns: Returns &amp; Refunds
+      online_stores: Online Stores
+      terms_conditions: Terms &amp; Conditions
+      # company
+      company: Company
+      what_we_do: What We Do
+      available_services: Available Services
+      lastest_posts: Latest Posts
+      faqs: FAQs
+      # social media
+      social_media: Social media
+      twitter: Twitter
+      instagram: Instagram
+      pinterest: Pinterest
+      facebook: Facebook
+      # copyright
+      copyright: 2021 All rights reserved.
+      designed_by: Template designed by 
+      template: Bootstrap Temple
+    navbar:
+      # admin user
+      new_product: New Product
+      view: View
+      customer_view: Customer View
+      admin_view: Admin View
+      # cart
+      cart: Cart
+      # user
+      profile: Profile
+      logout: Logout
+      login: Login
+      # language
+      language: Language
+      english: English
+      chinese: 中文

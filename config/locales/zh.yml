@@ -1,0 +1,94 @@
+zh:
+  products:
+    index: 
+      # title section
+      shop: 购物
+      home: 主页
+      # shop sidebar
+      categories: 类别
+      # fashion
+      fashion: 时尚
+      women_T-shirts: 女士衬衫
+      men_T-shirts: 男士衬衫
+      dresses: 裙子
+      socks: 袜子
+      women_sunglasses: 女士墨镜
+      men_sunglasses: 男士墨镜
+      # health
+      health: 美妆
+      shavers: 刮胡刀
+      bags: 包
+      cometic: 化妆品
+      nail: 美甲
+      skin_mask: 护肤品
+      korean_cosmetics: 韩国美妆
+      # electronics
+      electronics: 电子产品
+      usb: USB
+      headphones: 耳机
+      speakers: 便携式音响
+      phone_headsets: 蓝牙耳机
+      keyboards: 键盘
+      # shop listing
+      # TODO - change number to reflect the real number
+      show_result: 展示53个结果重的1–12
+      default_sorting: 默认排序
+      popularity: 最受欢迎
+      price_low_high: 价格低到高
+      price_high_low: 价格高到低
+    product_detail:
+      # product details
+      description: 描述
+      color: "颜色:"
+      size: "尺寸:"
+      material: "材料:"
+      season: "季节:"
+      quantity: 数量
+      add_to_cart: 加入购物车
+      add_to_wishlist: 收藏
+      reviews: 评论
+      # details tab
+      product_description: 商品详情
+      # related products
+      related_products: 相关商品
+
+  layouts:
+    footer: 
+      # customer services
+      customer_services: 客户服务
+      contact_us: 联系我们
+      returns: 退换货
+      online_stores: 网上商城
+      terms_conditions: 政策规定
+      # company
+      company: 公司信息
+      what_we_do: 业务范围
+      available_services: 可用服务
+      lastest_posts: 最新资讯
+      faqs: 常见问题
+      # social media
+      social_media: 社交媒体
+      twitter: 推特
+      instagram: Ins
+      pinterest: 品趣志
+      facebook: 脸书
+      # copyright
+      copyright: 2021.
+      designed_by: "设计:"
+      template: Bootstrap Temple
+    navbar:
+      # admin user
+      new_product: 添加商品
+      view: 界面
+      customer_view: 用户界面
+      admin_view: 管理员界面
+      # cart
+      cart: 购物车
+      # user
+      profile: 我的资料
+      logout: 退出
+      login: 登录
+      # language
+      language: 语言
+      english: English
+      chinese: 中文

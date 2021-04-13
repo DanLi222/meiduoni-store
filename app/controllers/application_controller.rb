@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate
 
+  def set_locale
+    I18n.locale = params[:locale].to_sym
+  end
+
   def authenticate
     if current_user.nil? && cookies["guest_uuid"].nil?
       @current_user = User.new_guest
