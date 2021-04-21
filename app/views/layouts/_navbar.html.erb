@@ -61,7 +61,7 @@
           </li>
           <% if current_user.present? && !current_user.guest%>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.name %></a>
+              <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.name || current_user.email %></a>
               <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
                 <a class="dropdown-item border-0 transition-link" href="<%= edit_user_registration_path %>"><%= t('.profile') %></a>
                 <a class="dropdown-item border-0 transition-link" href="<%= destroy_user_session_path %>" data-method="delete"><%= t('.logout') %></a>

@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController  
   def create
     guest_uuid = cookies[:guest_uuid]
-    guest_uuid.nil? ? super.create : update_guest
+    guest_uuid.nil? && guest_uuid.empty? ? super.create : update_guest
   end
 
   def update_guest
@@ -12,7 +12,7 @@ class RegistrationsController < Devise::RegistrationsController
     if resource_updated
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up
-        sign_up(resource_name, resource)
+        bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
         respond_with resource, location: after_sign_up_path_for(resource)
       else
         set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
@@ -25,6 +25,8 @@ class RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
     resource.update(guest: false)
+    guest_identification = GuestIdentification.find_by(uuid: cookies[:guest_uuid])
+    cookies["guest_uuid"] = nil if guest_identification.delete
   end
 
   def require_no_authentication
