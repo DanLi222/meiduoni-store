@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
   get 'activity/mine'
   get 'activity/feed'
   root to: 'products#index'
@@ -21,5 +21,4 @@ Rails.application.routes.draw do
   post 'checkout' => 'checkout#checkout'
   get 'update_billing_address' => 'checkout#update_billing_address'
   post 'set_locale' => 'application#set_locale'
-
 end

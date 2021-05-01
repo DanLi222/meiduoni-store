@@ -2,6 +2,7 @@
   "name": "MeiDuoNi",
   "private": true,
   "dependencies": {
+    "@hotwired/turbo-rails": "^7.0.0-beta.5",
     "@material-ui/popper.js": "^1.16.0",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
@@ -15,7 +16,7 @@
     "nouislider": "^14.6.3",
     "owl.carousel2": "^2.2.1",
     "popper.js": "^1.16.1",
-    "turbolinks": "^5.2.0"
+    "stimulus": "^2.0.0"
   },
   "version": "0.1.0",
   "devDependencies": {
