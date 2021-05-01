@@ -1,6 +1,4 @@
 class CheckoutController < ApplicationController
-  before_action :authenticate
-
   def checkout
     @current_cart = Cart.current_cart(current_user)
     initial_state = @current_cart.state
