@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
+  before_action :set_locale
+
   def set_locale
-    I18n.locale = params[:locale].to_sym
+    I18n.locale = params[:locale].to_sym if params[:locale].present?
   end
 
   def current_user
@@ -15,5 +17,9 @@ class ApplicationController < ActionController::Base
       guest = GuestIdentification.find_by(uuid: cookies["guest_uuid"]).guest
     end
     guest
+  end
+
+  def default_url_options
+    { locale: I18n.locale }
   end
 end
