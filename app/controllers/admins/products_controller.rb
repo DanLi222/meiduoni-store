@@ -17,8 +17,10 @@ class Admins::ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    response = Cloudinary::Uploader.upload(product_params['image'].path, :public_id => "#{@product.sku}-#{@product.color}", folder: "#{@product.sku}")
-    @product.image = response['secure_url']
+    if product_params['image'].present?
+      response = Cloudinary::Uploader.upload(product_params['image'].path, :public_id => "#{@product.sku}-#{@product.color}", folder: "#{@product.sku}")
+      @product.image = response['secure_url']
+    end
 
     @product.save
     redirect_to admins_products_path
@@ -26,14 +28,13 @@ class Admins::ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-    unless product_params['image'].nil? {
+    if product_params['image'].present?
       response = Cloudinary::Uploader.upload(product_params['image'].path, :public_id => "#{@product.sku}-#{@product.color}", folder: "#{@product.sku}")
       params['product']['image'] = response['secure_url']
-    }
     end
 
     updated = Products::ProductUpdater.new(product: @product, params: params).call
-    updated ? redirect_to admins_products_path : render 'edit'
+    updated ? (redirect_to admins_products_path) : (render 'edit')
   end
 
   def destroy

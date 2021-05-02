@@ -142,7 +142,7 @@ RSpec.describe CheckoutController, type: :controller do
         expect(HTTParty).to receive(:post).and_return(result)
 
         controller.send :confirm_payment
-        expect(cart.payment.first.state).to eql("completed")
+        expect(cart.payments.first.state).to eql("completed")
       end
     end
   end

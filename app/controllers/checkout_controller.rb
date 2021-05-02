@@ -112,7 +112,7 @@ class CheckoutController < ApplicationController
     )
 
     if result["state"] == "approved"
-      current_cart.payment.first.update(state: "completed")
+      current_cart.payments.first.update(state: "completed")
     end
   end
 
