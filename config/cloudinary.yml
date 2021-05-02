@@ -12,8 +12,8 @@ production:
   enhance_image_tag: true
   static_file_support: true
 test:
-  cloud_name: storedan
-  api_key: '789659421456698'
-  api_secret: DEFGFFpVgpN5Ti0JcbUDzMmc4PA
+  cloud_name: test
+  api_key: 'test'
+  api_secret: test
   enhance_image_tag: true
   static_file_support: false
