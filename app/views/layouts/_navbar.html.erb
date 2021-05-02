@@ -1,35 +1,6 @@
-<script>
-  $(document).ready(function () {
-    $('#locale-en').click(function () {
-      console.log('locale-en')
-      $.ajax({
-        url: "set_locale",
-        contentType: 'application/json',
-        type: "POST",
-        data: JSON.stringify({locale: "en"}),
-        success: function () {
-          location.reload();
-        }
-      });
-    });
-
-    $('#locale-zh').click(function () {
-      $.ajax({
-        url: "set_locale",
-        contentType: 'application/json',
-        type: "POST",
-        data: JSON.stringify({locale: "zh"}),
-        success: function () {
-          location.reload();
-        }
-      });
-    });
-  })
-</script>
-
 <header class="header bg-white">
   <div class="container px-0 px-lg-3">
-    <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="index.html"><span class="font-weight-bold text-uppercase text-dark">Meiduoni</span></a>
+    <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="<%= products_path %>"><span class="font-weight-bold text-uppercase text-dark">Meiduoni</span></a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- ADMIN USER -->
@@ -77,8 +48,8 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="localeDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= t('.language') %></a>
             <div class="dropdown-menu mt-3" aria-labelledby="localeDropdown">
-              <button id="locale-en" class="dropdown-item border-0 transition-link"><%= t('.english') %></button>
-              <button id="locale-zh" class="dropdown-item border-0 transition-link"><%= t('.chinese') %></button>
+              <div class="dropdown-item border-0 transition-link"><%= link_to t('.english'), url_for(locale: 'en') %></div>
+              <div class="dropdown-item border-0 transition-link"><%= link_to t('.chinese'), url_for(locale: 'zh') %></div>
             </div>
           </li>
         </ul>

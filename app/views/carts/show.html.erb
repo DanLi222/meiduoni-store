@@ -51,7 +51,7 @@
       })
 
       $.ajax({
-        url: "/checkout",
+        url: "<%= checkout_path %>",
         contentType: 'application/json',
         type: "POST",
         data: JSON.stringify({
