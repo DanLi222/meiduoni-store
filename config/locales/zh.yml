@@ -30,8 +30,6 @@ zh:
       phone_headsets: 蓝牙耳机
       keyboards: 键盘
       # shop listing
-      # TODO - change number to reflect the real number
-      show_result: 展示53个结果重的1–12
       default_sorting: 默认排序
       popularity: 最受欢迎
       price_low_high: 价格低到高
@@ -53,6 +51,8 @@ zh:
       related_products: 相关商品
 
   layouts:
+    application:
+      meiduoni: 美多妮
     footer: 
       # customer services
       customer_services: 客户服务
@@ -77,6 +77,8 @@ zh:
       designed_by: "设计:"
       template: Bootstrap Temple
     navbar:
+      # title
+      meiduoni: 美多妮
       # admin user
       new_product: 添加商品
       view: 界面
@@ -92,3 +94,115 @@ zh:
       language: 语言
       english: English
       chinese: 中文
+  
+  devise:
+    shared:
+      links:
+        log_in: 登录
+        sign_up: 注册
+        forgot_password: 忘记密码?
+        no_confirmation_instruction: 未收到确认指南？
+        no_unlock_instruction: 未收到解锁指南？
+    sessions:
+      new:
+        log_in: 登录
+        home: 主页
+        email: 邮箱
+        password: 密码
+        remember_me: 记住我
+    registrations:
+      new:
+        sign_up: 注册
+        home: 主页
+        email: 邮箱 
+        password: 密码
+        password_confirmation: 确认密码
+        minimum_char: 个字母至少
+      edit:
+        edit: 编辑资料
+        home: 主页
+        email: 邮箱
+        password: 密码
+        password_confirmation: 确认密码
+        current_password: 原密码
+        update: 更新
+        # cancel account
+        unhappy: 不开心？
+        cancel_account: 注销账户
+        # info
+        leave_blank: 如果不想修改可不填
+        minimum_char: 个字母至少
+        confirm_change: 我们需要你的原密码以确认你的修改
+  
+  carts:
+    show:
+      # cart
+      cart: 购物车
+      home: 主页
+      shopping_cart: 购物车
+      product: 商品
+      price: 价格
+      quantity: 数量
+      total: 总额
+      # button
+      continue_shopping: 继续购物
+      proceed_to_checkout: 前往付款
+      # total
+      cart_total: 购物车总和
+      subtotal: 商品总和
+      total: 总和
+      # coupon
+      apply_coupon: 使用优惠券
+      enter_coupon: 输入优惠券
+  
+  checkout:
+    checkout:
+      checkout: 付款
+      home: 主页
+      cart: 购物车
+      # total
+      your_order: 您的订单
+      estimated_total: 预估总额
+      total: 总额
+      # state
+      shipping: 邮寄地址
+      payment: 付款
+      review: 确认付款
+      summary: 订单完成
+    shipping:
+      # address info
+      first_name: 名
+      last_name: 姓
+      email_address: 邮箱
+      phone_number: 电话
+      postal_code: 邮编
+      country: 国家
+      address_line1: 地址1
+      address_line2: 地址2
+      town_city: 城镇/城市
+      state_province: 洲/省
+      # place holder
+      enter_first_name: 请输入您的名
+      enter_last_name: 请输入您的姓
+      enter_postal_code: 请输入邮编
+      enter_country: 您的国家
+      enter_house_number: 门牌号或街道号
+      enter_apartment: 公寓（选填）
+      enter_city: 您所在的城镇/城市
+      enter_province: 您所在的洲/省
+      # button
+      back_to_cart: 回到购物车
+      place_order: 前往付款
+    payment:
+      payment_method: 付款方式
+      paypal: Paypal
+      card: 银行卡
+      edit_shipping: 修改地址
+    review:
+      confirm_order: 确认订单
+      item: 商品
+      total: 总额
+      edit_payment: 修改付款方式
+      confirm_order: 确认订单
+          
+          

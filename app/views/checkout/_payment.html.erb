@@ -7,7 +7,6 @@ paypal.Button.render({
       production: ''
     },
     // Customize button (optional)
-    locale: 'en_US',
     style: {
       size: 'small',
       color: 'white',
@@ -30,9 +29,8 @@ paypal.Button.render({
     },
     onAuthorize: function(data, actions) {
       return actions.payment.get().then (function (){
-        console.log("paypal button clicked")
         $.ajax({
-          url: "/checkout",
+          url: "<%= checkout_path %>",
           contentType: 'application/json',
           type: "POST",
           data: JSON.stringify({
@@ -52,13 +50,13 @@ paypal.Button.render({
 </script>
 <div class="col-lg-8">
   <div class="bg-light jumbotron">
-    <p>Payment Method</p>
-    <div><a class="btn btn-primary btn-large m-2" href="#">Paypal</a></div>
-    <div><a class="btn btn-outline-primary btn-large m-2" href="#">Card</a></div>
+    <p><%= t('.payment_method') %></p>
+    <div><a class="btn btn-primary btn-large m-2" href="#"><%= t('.paypal') %></a></div>
+    <div><a class="btn btn-outline-primary btn-large m-2" href="#"><%= t('.card') %></a></div>
   </div>
   <div class="bg-light px-4 py-3">
     <div class="row align-items-center text-center">
-      <div class="col-md-6 mb-3 mb-md-0 text-md-left"><div id="editShipping" class="btn btn-link p-0 text-dark btn-sm"><i class="fas fa-long-arrow-alt-left mr-2"> </i>Edit shipping</div></div>
+      <div class="col-md-6 mb-3 mb-md-0 text-md-left"><div id="editShipping" class="btn btn-link p-0 text-dark btn-sm"><i class="fas fa-long-arrow-alt-left mr-2"> </i><%= t('.edit_shipping') %></div></div>
       <div class="col-md-6 text-md-right"><div id="paypal-button"></div></div>
     </div>
   </div>
