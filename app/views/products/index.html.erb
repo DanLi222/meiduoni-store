@@ -24,7 +24,6 @@
     });
 
     function injectSvgSprite(path) {
-
         var ajax = new XMLHttpRequest();
         ajax.open("GET", path, true);
         ajax.send();
@@ -93,14 +92,14 @@
         <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
           <div class="row mb-3 align-items-center">
             <div class="col-lg-6 mb-2 mb-lg-0">
-              <p class="text-small text-muted mb-0"><%= t('.show_result') %></p>
+              <p class="text-small text-muted mb-0"></p>
             </div>
             <div class="col-lg-6">
               <ul class="list-inline d-flex align-items-center justify-content-lg-end mb-0">
                 <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#"><i class="fas fa-th-large"></i></a></li>
                 <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#"><i class="fas fa-th"></i></a></li>
                 <li class="list-inline-item">
-                  <select class="selectpicker ml-auto" name="sorting" data-width="200" data-style="bs-select-form-control" data-title="Default sorting">
+                  <select class="selectpicker ml-auto" name="sorting" data-width="200" data-style="bs-select-form-control" data-title="<%= t('.default_sorting') %>">
                     <option value="default"><%= t('.default_sorting') %></option>
                     <option value="popularity"><%= t('.popularity') %></option>
                     <option value="low-high"><%= t('.price_low_high') %></option>

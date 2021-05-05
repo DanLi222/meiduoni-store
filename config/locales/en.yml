@@ -61,8 +61,6 @@ en:
       phone_headsets: Cell Phone bluetooth headsets
       keyboards: Keyboards
       # shop listing
-      # TODO
-      show_result: Showing 1–12 of 53 results
       default_sorting: Default sorting
       popularity: Popularity
       price_low_high: "Price: Low to High"
@@ -84,6 +82,8 @@ en:
       related_products: Related products
 
   layouts:
+    application:
+      meiduoni: Meiduoni
     footer: 
       # customer services
       customer_services: Customer Services
@@ -108,6 +108,8 @@ en:
       designed_by: Template designed by 
       template: Bootstrap Temple
     navbar:
+      # title
+      meiduoni: Meiduoni
       # admin user
       new_product: New Product
       view: View
@@ -123,3 +125,115 @@ en:
       language: Language
       english: English
       chinese: 中文
+  
+  devise:
+    shared:
+      links:
+        log_in: Log in
+        sign_up: Sign Up
+        forgot_password: Forgot your password?
+        no_confirmation_instruction: Didn't receive confirmation instructions?
+        no_unlock_instruction: Didn't receive unlock instructions?
+    sessions:
+      new:
+        log_in: Log in
+        home: Home
+        label:
+          email: Email
+          password: Password
+          remember_me: Remember_me
+    registrations:
+      new:
+        sign_up: Sign up
+        home: Home
+        email: Email 
+        password: Password
+        password_confirmation: Password Confirmation
+        minimum_char: characters minimum
+      edit:
+        edit: Edit Profile
+        home: Home
+        email: Email
+        password: Password
+        password_confirmation: Password Confirmation
+        current_password: Current Password
+        update: Update
+        # cancel account
+        unhappy: unhappy?
+        cancel_account: Cancel my account
+        # info
+        leave_blank: (leave blank if you don't want to change it)
+        minimum_char: characters minimum
+        confirm_change: (we need your current password to confirm your changes)
+  
+  carts:
+    show:
+      # cart
+      cart: Cart
+      home: Home
+      shopping_cart: Shopping cart
+      product: Product
+      price: Price
+      quantity: Quantity
+      total: Total
+      # button
+      continue_shopping: Continue Shopping
+      proceed_to_checkout: Proceed to checkout
+      # total
+      cart_total: Cart total
+      subtotal: Subtotal
+      total: Total
+      # coupon
+      apply_coupon: Apply coupon
+      enter_coupon: Enter you coupon
+  
+  checkout:
+    checkout:
+      checkout: Checkout
+      home: Home
+      cart: Cart
+      # total
+      your_order: Your order
+      estimated_total: Estimated Total
+      total: Total
+      # state
+      shipping: Shipping
+      payment: Payment
+      review: Review
+      summary: Summary
+    shipping:
+      # address info
+      first_name: First name
+      last_name: Last name
+      email_address: Email address
+      phone_number: Phone number
+      postal_code: Postal code
+      country: Country
+      address_line1: Address line 1
+      address_line2: Address line 2
+      town_city: Town/City
+      state_province: State/Province
+      # place holder
+      enter_first_name: Enter your first name
+      enter_last_name: Enter your last name
+      enter_postal_code: Enter your postal code
+      enter_country: Your country
+      enter_house_number: House number and street number
+      enter_apartment: Apartment, Suite, Unit, etc (optional)
+      enter_city: Your town/city
+      enter_province: Your state/Province
+      # button
+      back_to_cart: Back To Cart
+      place_order: Place Order
+    payment:
+      payment_method: Payment Method
+      paypal: Paypal
+      card: Card
+      edit_shipping: Edit Shipping
+    review:
+      confirm_order: Confrim Order
+      item: Item
+      total: Total
+      edit_payment: Edit payment
+      confirm_order: Confirm Order
+

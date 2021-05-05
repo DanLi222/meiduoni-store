@@ -1,6 +1,5 @@
 <script>
     $(document).ready(function () {
-
       $('.owl-carousel').owlCarousel({
         center: true,
         items:1
@@ -37,7 +36,7 @@
       $('#addToCart').click(function () {
         var cartId = <%= @cart_id %>
         $.ajax({
-          url: "/add_to_cart",
+          url: "<%= add_to_cart_path %>",
           contentType: 'text/html',
           type: "GET",
           data: {

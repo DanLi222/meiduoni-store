@@ -2,7 +2,6 @@
 <script>
   $(document).ready(function () {
     $('#backToCart').click(function() {
-      console.log("back to cart clicked")
       $.ajax({
         url: "",
         contentType: 'text/html',
@@ -17,7 +16,6 @@
     })
 
     $('#editShipping').click( function() {
-      console.log("edit shipping clicked")
       $.ajax({
         url: "",
         contentType: 'text/html',
@@ -32,7 +30,6 @@
     })
 
     $('#editPayment').click( function() {
-      console.log("edit payment clicked")
       $.ajax({
         url: "",
         contentType: 'text/html',
@@ -47,7 +44,6 @@
     });
 
     $('#confirm-button').click(function () {
-      console.log("confirm button clicked")
       $.ajax({
         url: "",
         contentType: 'text/html',
@@ -67,14 +63,14 @@
     <div class="container">
       <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
         <div class="col-lg-6">
-          <h1 class="h2 text-uppercase mb-0">Checkout</h1>
+          <h1 class="h2 text-uppercase mb-0"><%= t('.checkout') %></h1>
         </div>
         <div class="col-lg-6 text-lg-right">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-lg-end mb-0 px-0">
-              <li class="breadcrumb-item"><a href="<%= products_path %>">Home</a></li>
-              <li class="breadcrumb-item"><a href="<%= cart_path(Cart.current_cart(current_user)) %>">Cart</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+              <li class="breadcrumb-item"><a href="<%= products_path %>"><%= t('.home') %></a></li>
+              <li class="breadcrumb-item"><a href="<%= cart_path(Cart.current_cart(current_user)) %>"><%= t('.cart') %></a></li>
+              <li class="breadcrumb-item active" aria-current="page"><%= t('.checkout') %></li>
             </ol>
           </nav>
         </div>
@@ -83,7 +79,14 @@
   </section>
   <section class="py-5">
     <!-- CHECKOUT PARTIAL-->
-    <h2 class="h5 text-uppercase mb-4"><%= @state %></h2>
+    <h2 class="h5 text-uppercase mb-4">
+      <% case @state 
+         when 'shipping' %><%= t('.shipping') %>
+      <% when 'payment'  %><%= t('.payment') %>
+      <% when 'review'   %><%= t('.review') %>
+      <% when 'summary'  %><%= t('.summary') %>
+      <% end %>
+    </h2>
     <div class="row">
       <%= render partial: @state %>
       
@@ -91,7 +94,7 @@
       <div class="col-lg-4">
         <div class="card border-0 rounded-0 p-lg-4 bg-light">
           <div class="card-body">
-            <h5 class="text-uppercase mb-4">Your order</h5>
+            <h5 class="text-uppercase mb-4"><%= t('.your_order') %></h5>
             <ul class="list-unstyled mb-0">
               <% @line_items.each do |line_item| %>
                 <li class="d-flex align-items-center justify-content-between"><strong class="small font-weight-bold"><%= line_item.inventory.product.sku%></strong>
@@ -99,7 +102,15 @@
                 </li>
                 <li class="border-bottom my-2"></li>
               <% end %>
-              <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Estimated Total</strong><span><%= @current_cart.total %></span></li>
+              <li class="d-flex align-items-center justify-content-between">
+                <strong class="text-uppercase small font-weight-bold">
+                  <% if @state == 'shipping' %>
+                    <%= t('.estimated_total') %>
+                  <% else %>
+                    <%= t('.total') %>
+                  <% end %>
+                </strong>
+                <span><%= @current_cart.total %></span></li>
             </ul>
           </div>
         </div>
