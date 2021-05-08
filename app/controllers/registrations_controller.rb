@@ -1,4 +1,6 @@
-class RegistrationsController < Devise::RegistrationsController  
+class RegistrationsController < Devise::RegistrationsController
+  before_action :new_cart
+
   def create
     guest_uuid = cookies[:guest_uuid]
     guest_uuid.nil? || guest_uuid.empty? ? super : update_guest

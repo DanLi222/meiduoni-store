@@ -22,8 +22,8 @@
         <ul class="navbar-nav ml-auto">
           <% if current_user.present? %>
             <li class="nav-item">
-              <a class="nav-link" href="<%= cart_path(Cart.current_cart(current_user)) %>">
-                <i class="fas fa-dolly-flatbed mr-1 text-gray"></i><%= t('.cart') %><small class="text-gray">(<%= Cart.current_cart(current_user).line_items.count %>)</small>
+              <a class="nav-link" href="<%= cart_path(Cart.current_cart(current_user)) unless current_user.admin %>">
+                <i class="fas fa-dolly-flatbed mr-1 text-gray"></i><%= t('.cart') %><small id="cart-item-count" class="text-gray">(<%= Cart.current_cart(current_user)&.line_items&.count || 0 %>)</small>
               </a>
             </li>
           <% end %>

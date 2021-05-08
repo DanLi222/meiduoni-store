@@ -22,4 +22,8 @@ class ApplicationController < ActionController::Base
   def default_url_options
     { locale: I18n.locale }
   end
+
+  def new_cart
+    current_user.create_cart if Cart.current_cart(current_user).present? && Cart.current_cart(current_user)&.state == 'summary'
+  end
 end

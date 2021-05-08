@@ -24,7 +24,6 @@
     }
 
     $('.cart-dec-btn').click(function () {
-      
       var line_item_id = this.className.split(' ')[0];
       var siblings = $(this).siblings('input');
       if (parseInt(siblings.val(), 10) > 1) {
@@ -41,7 +40,6 @@
     });
 
     $('#checkout').click(function () {
-      console.log("checkout button clicked")
       var checkout_line_items = []
       line_items.forEach((item) => {
         checkout_line_items.push({
@@ -60,6 +58,21 @@
         }),
         success: function () {
           window.location.href = "<%= checkout_path %>"
+        }
+      })
+    });
+
+    $('.remove-lineitem').click(function () {
+      var line_item_id = $(this)[0].id.match(/\d+/)[0]
+      $.ajax({
+        url: "<%= remove_from_cart_path %>",
+        contentType: 'application/json',
+        type: "POST",
+        data: JSON.stringify({
+          line_item_id: line_item_id,
+        }),
+        success: function () {
+          window.location.href = "<%= cart_path(Cart.current_cart(current_user).id) %>"
         }
       })
     })
@@ -124,7 +137,7 @@
                   <td class="align-middle border-0">
                     <p class="mb-0 small" id="single_item_total-<%= line_item.id %>"><%= line_item.price.to_i %></p>
                   </td>
-                  <td class="align-middle border-0"><a class="reset-anchor" href="#"><i class="fas fa-trash-alt small text-muted"></i></a></td>
+                  <td id="remove-<%= line_item.id %>" class="remove-lineitem align-middle border-0"><a class="reset-anchor" href="#"><i class="fas fa-trash-alt small text-muted"></i></a></td>
                 </tr>
               <% end %>
             </tbody>
