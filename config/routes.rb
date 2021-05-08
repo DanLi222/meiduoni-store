@@ -19,9 +19,12 @@ Rails.application.routes.draw do
     resources :addresses
 
     get 'add_to_cart' => 'line_items#add_to_cart'
+    post 'remove_from_cart' => 'line_items#remove_from_cart'
+
     get 'checkout' => 'checkout#checkout'
     post 'checkout' => 'checkout#checkout'
     get 'update_billing_address' => 'checkout#update_billing_address'
+
     post 'set_locale' => 'application#set_locale'
   end
 end

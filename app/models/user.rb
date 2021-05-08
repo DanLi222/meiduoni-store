@@ -6,7 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  after_create :create_carts
+  after_create :create_cart
 
   def self.new_guest
     guest = create(email: "guest" + "#{guest_number}" + "@guest.com", password: SecureRandom.uuid, guest: true)
@@ -18,10 +18,11 @@ class User < ApplicationRecord
     end
   end
 
-  private
-  def create_carts
+  def create_cart
     self.carts << Cart.create()
   end
+
+  private
 
   def self.create_guest_identification(guest)
     GuestIdentification.create(guest: guest)

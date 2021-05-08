@@ -1,4 +1,6 @@
 class LineItemsController < ApplicationController
+  before_action :new_cart
+
   def add_to_cart
     @line_items = Cart.current_cart(current_user).line_items
     inventory_id = params['inventory_id'].to_i
@@ -10,6 +12,13 @@ class LineItemsController < ApplicationController
     else
       update_item(line_item)
     end
+    render json: { line_items_count: @line_items.count }
+  end
+
+  def remove_from_cart
+    line_item_id = params['line_item_id']
+    line_item = LineItem.find_by(id: line_item_id, cart_id: Cart.current_cart(current_user).id)
+    line_item.destroy unless line_item.nil?
   end
 
   private

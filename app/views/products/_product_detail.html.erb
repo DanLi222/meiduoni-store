@@ -44,6 +44,9 @@
             quantity: $('#quantity').val(),
             cart_id: cartId
           },
+          success: function(data){
+            document.getElementById("cart-item-count").innerHTML = `(${data.line_items_count})`;
+          }
         });
       })
     })
