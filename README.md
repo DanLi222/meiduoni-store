@@ -56,19 +56,22 @@
   - Email: `admin@meiduoni.com`
   - Password: `123123`
 
-##### Create a product
-- Click the "New Product" button on the top navigation bar
-- Enter Sku, Color, and choose an image
-- Click the "Create Product" button to create the product
-  - Notice that the new product is displayed
+  ##### Create a product
+  - Click the "New Product" button on the top navigation bar
+  - Enter Sku, Color, and choose an image
+    - Feel free to use this image: 
+    - ![alt text](https://user-images.githubusercontent.com/60045359/117695869-b1b78980-b18e-11eb-8adf-f35eaeb0c5c3.png)
 
-##### Edit a product
-- Click the "Edit" button below one of the products
-- Enter the fields that needs to be updated
-  - eg. Change the quantity for each size
-- Click the "Update Product" button
-- Click "Edit" button below the same product again
-  - Notice the updated information are displayed
+  - Click the "Create Product" button to create the product
+    - Notice that the new product is displayed
 
-##### Switch between admin view and customer view
-- Click the "View" button on the top navigation bar to switch between "Admin View" and "Customer View"
+  ##### Edit a product
+  - Click the "Edit" button below one of the products
+  - Enter the fields that needs to be updated
+    - eg. Change the quantity for each size
+  - Click the "Update Product" button
+  - Click "Edit" button below the same product again
+    - Notice the updated information are displayed
+
+  ##### Switch between admin view and customer view
+  - Click the "View" button on the top navigation bar to switch between "Admin View" and "Customer View"
