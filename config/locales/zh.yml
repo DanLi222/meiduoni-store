@@ -50,6 +50,60 @@ zh:
       # related products
       related_products: 相关商品
 
+  admins:
+    products:
+      index: 
+        # title section
+        shop: 购物
+        home: 主页
+        # shop sidebar
+        categories: 类别
+        # fashion
+        fashion: 时尚
+        women_T-shirts: 女士衬衫
+        men_T-shirts: 男士衬衫
+        dresses: 裙子
+        socks: 袜子
+        women_sunglasses: 女士墨镜
+        men_sunglasses: 男士墨镜
+        # health
+        health: 美妆
+        shavers: 刮胡刀
+        bags: 包
+        cometic: 化妆品
+        nail: 美甲
+        skin_mask: 护肤品
+        korean_cosmetics: 韩国美妆
+        # electronics
+        electronics: 电子产品
+        usb: USB
+        headphones: 耳机
+        speakers: 便携式音响
+        phone_headsets: 蓝牙耳机
+        keyboards: 键盘
+        # shop listing
+        default_sorting: 默认排序
+        popularity: 最受欢迎
+        price_low_high: 价格低到高
+        price_high_low: 价格高到低
+        # product details
+        description: 描述
+        color: "颜色:"
+        size: "尺寸:"
+        material: "材料:"
+        season: "季节:"
+        quantity: 数量
+        add_to_cart: 加入购物车
+        add_to_wishlist: 收藏
+        reviews: 评论
+        edit: 编辑
+        destroy: 删除
+        are_you_sure: 你确定吗？
+        # details tab
+        product_description: 商品详情
+        # related products
+        related_products: 相关商品
+
   layouts:
     application:
       meiduoni: 美多妮

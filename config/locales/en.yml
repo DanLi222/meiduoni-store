@@ -38,7 +38,7 @@ en:
       # shop sidebar
       categories: Categories
       # fashion
-      fashion: Fashion &amp; Acc
+      fashion: Fashion & Acc
       women_T-shirts: Women's T-Shirts
       men_T-shirts: Men's T-Shirts
       dresses: Dresses
@@ -46,12 +46,12 @@ en:
       women_sunglasses: Women's sunglasses
       men_sunglasses: Men's sunglasses
       # health
-      health: Health &amp; Beauty
+      health: Health & Beauty
       shavers: Shavers
       bags: bags
       cometic: Cosmetic
       nail: Nail Art
-      skin_mask: Skin Masks &amp; Peels
+      skin_mask: Skin Masks & Peels
       korean_cosmetics: Korean cosmetics
       # electronics
       electronics: Electronics
@@ -80,6 +80,60 @@ en:
       product_description: Product description
       # related products
       related_products: Related products
+
+  admins:
+    products:
+      index: 
+        # title section
+        shop: Shop
+        home: Home
+        # shop sidebar
+        categories: Categories
+        # fashion
+        fashion: Fashion & Acc
+        women_T-shirts: Women's T-Shirts
+        men_T-shirts: Men's T-Shirts
+        dresses: Dresses
+        socks: Novelty socks
+        women_sunglasses: Women's sunglasses
+        men_sunglasses: Men's sunglasses
+        # health
+        health: Health & Beauty
+        shavers: Shavers
+        bags: bags
+        cometic: Cosmetic
+        nail: Nail Art
+        skin_mask: Skin Masks & Peels
+        korean_cosmetics: Korean cosmetics
+        # electronics
+        electronics: Electronics
+        usb: USB Flash drives
+        headphones: Headphones
+        speakers: Portable speakers
+        phone_headsets: Cell Phone bluetooth headsets
+        keyboards: Keyboards
+        # shop listing
+        default_sorting: Default sorting
+        popularity: Popularity
+        price_low_high: "Price: Low to High"
+        price_high_low: "Price: High to Low"
+        # product details
+        description: Description
+        color: "Color:"
+        size: "Size:"
+        material: "Material:"
+        season: "Season:"
+        quantity: Quantity
+        add_to_cart: Add to cart
+        add_to_wishlist: Add to wish list
+        reviews: Reviews
+        edit: Edit
+        destroy: Destroy
+        are_you_sure: Are you sure?
+        # details tab
+        product_description: Product description
+        # related products
+        related_products: Related products
 
   layouts:
     application:
